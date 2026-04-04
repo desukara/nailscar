@@ -8,6 +8,24 @@
     <meta name="keywords" content="Nailscar, contact, email, support" />
     <meta name="author" content="James P Simmons" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .hero-image {
+        display: block;
+        width: 100%;
+        max-width: 1100px;
+        height: auto;
+        border-radius: 20px;
+        margin: 0 auto 1.5rem;
+        object-fit: cover;
+      }
+
+      .contact-email a {
+        display: inline-block;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+    </style>
   </head>
 
   <body data-page="contact">
@@ -42,7 +60,6 @@
 
     <main>
       <section class="container">
-        <!-- HERO -->
         <section class="card hero fade-up">
           <img
             class="hero-image"
@@ -58,7 +75,7 @@
               <p>
                 If something here has been meaningful to you, or if you have a
                 question you have been carrying quietly, you are free to reach
-                out, there is no pressure in how you write or what you say.
+                out. There is no pressure in how you write or what you say.
               </p>
             </div>
           </div>
@@ -66,7 +83,6 @@
       </section>
 
       <section class="container">
-        <!-- CONTACT -->
         <section class="card fade-up">
           <h2>Email</h2>
 
@@ -81,7 +97,7 @@
             </p>
           </div>
 
-          <p>
+          <p class="contact-email">
             <strong>
               <a href="mailto:jesuslebenjp@gmail.com">
                 jesuslebenjp@gmail.com
@@ -90,11 +106,10 @@
           </p>
         </section>
 
-        <!-- CLOSING -->
         <section class="card featured-quote fade-up">
           <h2>A gentle note</h2>
 
-          <blockquote class="quote-text-scroll">
+          <blockquote class="creator-quote">
             <p>
               “You are allowed to reach out without having everything figured
               out first.”
