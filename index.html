@@ -3,66 +3,309 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home | Nailscar</title>
+    <title>FAQ | Nailscar</title>
+    <meta
+      name="description"
+      content="Common questions about Christian legalism, healing, fear, faith, and recovery."
+    />
+    <meta
+      name="keywords"
+      content="Nailscar, FAQ, Christian legalism, healing, spiritual recovery, faith, questions, hope"
+    />
+    <meta name="author" content="James P Simmons" />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .hero-copy {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .hero-copy h2,
+      .hero-copy p,
+      .hero-copy .hero-kicker {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-image {
+        display: block;
+        width: 100%;
+        max-width: 1100px;
+        height: auto;
+        border-radius: 20px;
+        margin: 0 auto 1.5rem;
+        object-fit: cover;
+      }
+
+      .hero-text-scroll {
+        width: 100%;
+        max-height: clamp(220px, 34vh, 420px);
+        overflow-y: auto;
+        padding-right: 0.75rem;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      .gentle-text-scroll {
+        width: 100%;
+        max-height: clamp(180px, 28vh, 320px);
+        overflow-y: auto;
+        padding-right: 0.75rem;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      .quote-text-scroll {
+        width: 100%;
+        max-height: clamp(200px, 34vh, 320px);
+        overflow-y: auto;
+        padding-right: 0.75rem;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      .hero-text-scroll p:first-child,
+      .gentle-text-scroll p:first-child,
+      .quote-text-scroll p:first-child {
+        margin-top: 0;
+      }
+
+      .hero-text-scroll p:last-child,
+      .gentle-text-scroll p:last-child,
+      .quote-text-scroll p:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 1024px) {
+        .hero-text-scroll {
+          max-height: clamp(220px, 32vh, 380px);
+        }
+
+        .gentle-text-scroll {
+          max-height: clamp(170px, 26vh, 280px);
+        }
+
+        .quote-text-scroll {
+          max-height: clamp(190px, 30vh, 280px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-copy {
+          max-width: 100%;
+        }
+
+        .hero-text-scroll {
+          max-height: clamp(200px, 30vh, 320px);
+        }
+
+        .gentle-text-scroll {
+          max-height: clamp(160px, 24vh, 240px);
+        }
+
+        .quote-text-scroll {
+          max-height: clamp(180px, 28vh, 240px);
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-text-scroll {
+          max-height: clamp(180px, 28vh, 260px);
+          padding-right: 0.5rem;
+        }
+
+        .gentle-text-scroll {
+          max-height: clamp(150px, 22vh, 220px);
+          padding-right: 0.5rem;
+        }
+
+        .quote-text-scroll {
+          max-height: clamp(170px, 26vh, 220px);
+          padding-right: 0.5rem;
+        }
+      }
+    </style>
   </head>
-  <body data-page="home">
+
+  <body data-page="faq">
     <header class="site-header">
       <div class="container">
-        <h1 class="site-title">Nailscar</h1>
-        <p class="site-tagline">
-          A place for those healing from Christian legalism
-        </p>
+        <div class="site-branding">
+          <h1 class="site-title">Nailscar</h1>
+        </div>
 
-        <nav class="site-nav">
+        <nav class="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="about.html">About</a>
-          <a href="resources.html">Resources</a>
-          <a href="contact.html">Contact</a>
-          <a href="legalism.html">Legalism</a>
-          <a href="healing.html">Healing</a>
+          <a href="healing-pages.html">Healing</a>
           <a href="stories.html">Stories</a>
-          <a href="faq.html">FAQ</a>
+          <a href="blog.html">Blog</a>
+          <a href="resources.html">Resources</a>
+          <a href="legalism.html">Legalism</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html" aria-current="page">FAQ</a>
         </nav>
 
-        <button id="themeToggle" class="theme-button" type="button">
-          Toggle Comfort Mode
+        <button
+          id="themeToggle"
+          class="theme-button"
+          type="button"
+          aria-label="Toggle comfort mode"
+        >
+          Comfort Mode
         </button>
       </div>
     </header>
 
-    <main class="container">
-      <section class="card hero">
-        <h2>Welcome</h2>
-        <p>
-          If you have been hurt, confused, controlled, or spiritually exhausted
-          by legalism, this site is meant to be a gentle place to pause, learn,
-          and begin healing.
-        </p>
+    <main>
+      <section class="container">
+        <section class="card hero fade-up">
+          <img
+            class="hero-image"
+            src="https://i.imgur.com/J6b5jcU.png"
+            alt="A calm path through a quiet natural setting"
+          />
+
+          <div class="hero-copy">
+            <p class="hero-kicker">Common questions</p>
+            <h2>You are not strange for asking hard things.</h2>
+
+            <div class="hero-text-scroll">
+              <p>
+                Many people who have been shaped by legalistic environments
+                carry similar fears, and you are not alone in that, so here are
+                a few gentle responses to the questions that often rise in that
+                space.
+              </p>
+            </div>
+          </div>
+        </section>
       </section>
 
-      <section class="card">
-        <h2>You are not alone</h2>
-        <p>
-          Many people carry fear, guilt, shame, and religious pressure for years
-          without realizing how deeply it has affected them.
-        </p>
-      </section>
+      <section class="container">
+        <section class="card fade-up">
+          <h2>What is Christian legalism?</h2>
 
-      <section class="card">
-        <h2>Read More</h2>
-        <p class="toggle-text hidden">
-          Healing can include grief, rest, truth-telling, rebuilding trust, and
-          learning the difference between control and genuine faith. You are
-          allowed to question what hurt you.
-        </p>
-        <button class="read-more-btn" type="button">Read More</button>
+          <div class="gentle-text-scroll">
+            <p>
+              It's a way of relating to God and faith that often centers fear,
+              pressure, performance, and control, it may speak the language of
+              obedience, yet it often leaves people carrying a quiet weight of
+              anxiety, a sense of shame they cannot quite name, and a kind of
+              spiritual exhaustion that lingers longer than it should.
+            </p>
+          </div>
+        </section>
+
+        <section class="card fade-up">
+          <h2>How do I know if what I experienced was harmful?</h2>
+
+          <div class="gentle-text-scroll">
+            <p>
+              One place to begin is by noticing what it produced in you, whether
+              it led you toward honesty, steadiness, and love, or whether it
+              left you panicked, silenced, confused, and afraid to think for
+              yourself.
+            </p>
+            <p>
+              Harm is not only defined by the words that were spoken, it is also
+              revealed in what those words did, in the way they settled into you
+              and shaped how you moved, what you trusted, and what you felt
+              allowed to become.
+            </p>
+          </div>
+        </section>
+
+        <section class="card fade-up">
+          <h2>Am I just bitter?</h2>
+
+          <div class="gentle-text-scroll">
+            <p>
+              Not necessarily, because what is often named bitterness can be
+              something else entirely, it can be grief finding its voice, or
+              clarity beginning to take shape, or the early movement of telling
+              the truth after a long silence, and anger or sorrow may rise not
+              as failure but as a sign that what was once minimized is no longer
+              being pushed aside.
+            </p>
+          </div>
+        </section>
+
+        <section class="card fade-up">
+          <h2>Does questioning mean I am losing my faith?</h2>
+
+          <div class="gentle-text-scroll">
+            <p>
+              No, questioning can be part of faith becoming more honest, because
+              agreement that never had room to breathe is not the same as trust,
+              and many people only begin to find healing when they stop quieting
+              the questions that were trying to keep them safe.
+            </p>
+          </div>
+        </section>
+
+        <section class="card fade-up">
+          <h2>Can I still love Jesus and reject harmful systems?</h2>
+
+          <div class="gentle-text-scroll">
+            <p>
+              Yes, those are not the same thing, and for many people there comes
+              a quiet but necessary work of separating Jesus from the fear based
+              structures that were built around Him, allowing love to remain
+              without carrying what caused harm.
+            </p>
+          </div>
+        </section>
+
+        <section class="card fade-up">
+          <h2>Why do I still feel guilty all the time?</h2>
+
+          <div class="gentle-text-scroll">
+            <p>
+              Guilt can linger long after the environment changes, because if
+              you were taught to watch yourself closely and constantly, your
+              mind and body may still move as if danger is near, even when it is
+              not.
+            </p>
+            <p>
+              That does not mean the guilt is telling the truth, it may simply
+              mean your system learned fear well and has not yet been given the
+              space to unlearn it.
+            </p>
+          </div>
+        </section>
+
+        <section class="card fade-up">
+          <h2>How long does healing take?</h2>
+
+          <div class="gentle-text-scroll">
+            <p>
+              There is no clean timeline, because some things begin to ease
+              sooner while other layers take their time, unfolding slowly and
+              without hurry, and the aim is not speed but something steadier,
+              something rooted in truth, a kind of freedom that does not ask you
+              to pretend in order to feel whole.
+            </p>
+          </div>
+        </section>
+
+        <section class="card featured-quote fade-up">
+          <h2>A steady answer</h2>
+
+          <blockquote class="quote-text-scroll">
+            <p>
+              “You are allowed to ask the kind of questions that make room for
+              truth, and do not force you to live under fear.”
+            </p>
+          </blockquote>
+        </section>
       </section>
     </main>
 
     <footer class="site-footer">
       <div class="container">
-        <p>© Nailscar</p>
+        <p>© Nailscar. All rights reserved.</p>
       </div>
     </footer>
 
