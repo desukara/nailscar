@@ -6,9 +6,251 @@
     <title>Home | Nailscar</title>
     <meta
       name="description"
-      content="Welcome to Nailscar — a space for clarity, rest, healing, and truth."
+      content="Nailscar is a space for clarity, healing, and freedom for people recovering from Christian legalism, fear, and spiritual pressure."
     />
     <link rel="stylesheet" href="styles.css" />
+    <style>
+      .hero-copy {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .hero-copy h2,
+      .hero-copy p,
+      .hero-copy .hero-kicker {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        justify-content: center;
+        margin-top: 1.35rem;
+      }
+
+      .hero-image-section {
+        width: 100%;
+        margin: 1.1rem 0 2rem;
+        padding: 0 1rem;
+        box-sizing: border-box;
+      }
+
+      .hero-image-box {
+        width: min(100%, 1100px);
+        margin: 0 auto;
+        padding: 0;
+        min-height: 0;
+        display: block;
+        border-radius: 22px;
+        overflow: hidden;
+        line-height: 0;
+      }
+
+      .hero-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 0;
+        border-radius: 22px;
+      }
+
+      .hero-text-scroll,
+      .section-text-scroll,
+      .path-text-scroll,
+      .quote-text-scroll {
+        width: 100%;
+        overflow-y: auto;
+        padding-right: 0.75rem;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+        scrollbar-width: thin;
+      }
+
+      .hero-text-scroll {
+        max-height: clamp(250px, 34vh, 430px);
+      }
+
+      .section-text-scroll {
+        max-height: clamp(220px, 30vh, 380px);
+      }
+
+      .path-text-scroll {
+        max-height: clamp(130px, 18vh, 170px);
+      }
+
+      .quote-text-scroll {
+        max-height: clamp(110px, 15vh, 145px);
+      }
+
+      .hero-text-scroll p:first-child,
+      .section-text-scroll p:first-child,
+      .path-text-scroll p:first-child,
+      .quote-text-scroll p:first-child {
+        margin-top: 0;
+      }
+
+      .hero-text-scroll p:last-child,
+      .section-text-scroll p:last-child,
+      .path-text-scroll p:last-child,
+      .quote-text-scroll p:last-child {
+        margin-bottom: 0;
+      }
+
+      .home-pathways {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.25rem;
+        margin: 1.5rem 0;
+      }
+
+      .path-card {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .path-card .read-more-btn {
+        margin-top: 1rem;
+        align-self: flex-start;
+      }
+
+      .scroll-hint {
+        display: block;
+        margin-top: 0.85rem;
+        font-size: 0.92rem;
+        opacity: 0.78;
+      }
+
+      @media (max-width: 1024px) {
+        .hero-image-section {
+          margin: 1rem 0 1.75rem;
+        }
+
+        .hero-text-scroll {
+          max-height: clamp(250px, 38vh, 390px);
+        }
+
+        .section-text-scroll {
+          max-height: clamp(230px, 34vh, 330px);
+        }
+
+        .path-text-scroll {
+          max-height: clamp(125px, 18vh, 160px);
+        }
+
+        .quote-text-scroll {
+          max-height: clamp(110px, 15vh, 140px);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-copy {
+          max-width: 100%;
+        }
+
+        .hero-image-section {
+          padding: 0 0.9rem;
+          margin: 0.95rem 0 1.45rem;
+        }
+
+        .hero-image-box,
+        .hero-image {
+          border-radius: 18px;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .hero-actions .read-more-btn {
+          width: 100%;
+          text-align: center;
+        }
+
+        .home-pathways {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+
+        .hero-text-scroll {
+          max-height: clamp(260px, 42vh, 350px);
+          padding-right: 0.6rem;
+        }
+
+        .section-text-scroll {
+          max-height: clamp(240px, 38vh, 310px);
+          padding-right: 0.6rem;
+        }
+
+        .path-text-scroll {
+          max-height: clamp(135px, 20vh, 165px);
+          padding-right: 0.55rem;
+        }
+
+        .quote-text-scroll {
+          max-height: clamp(115px, 16vh, 145px);
+          padding-right: 0.55rem;
+        }
+
+        .scroll-hint {
+          font-size: 0.88rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero-image-section {
+          padding: 0 0.75rem;
+          margin: 0.75rem 0 1.25rem;
+        }
+
+        .hero-image-box,
+        .hero-image {
+          border-radius: 16px;
+        }
+
+        .hero-text-scroll {
+          max-height: clamp(270px, 46vh, 340px);
+          padding-right: 0.5rem;
+        }
+
+        .section-text-scroll {
+          max-height: clamp(250px, 42vh, 300px);
+          padding-right: 0.5rem;
+        }
+
+        .path-text-scroll {
+          max-height: clamp(140px, 22vh, 170px);
+          padding-right: 0.45rem;
+        }
+
+        .quote-text-scroll {
+          max-height: clamp(120px, 16vh, 150px);
+          padding-right: 0.45rem;
+        }
+
+        .scroll-hint {
+          font-size: 0.84rem;
+        }
+      }
+
+      @media (min-width: 1025px) {
+        .hero-text-scroll,
+        .section-text-scroll,
+        .path-text-scroll,
+        .quote-text-scroll {
+          max-height: none;
+          overflow: visible;
+          padding-right: 0;
+        }
+
+        .scroll-hint {
+          display: none;
+        }
+      }
+    </style>
   </head>
 
   <body data-page="home">
@@ -18,7 +260,6 @@
           <h1 class="site-title">Nailscar</h1>
         </div>
 
-        <!-- EXACT NAV STRUCTURE (DO NOT CHANGE) -->
         <nav class="site-nav" aria-label="Main navigation">
           <a href="index.html" aria-current="page">Home</a>
           <a href="about.html">About</a>
@@ -45,33 +286,200 @@
     <main>
       <section class="container">
         <section class="card hero fade-up">
-          <div style="text-align: center; max-width: 760px; margin: 0 auto">
+          <div class="hero-copy">
             <p class="hero-kicker">Welcome</p>
 
-            <h2>This space is for clarity, not pressure.</h2>
+            <h2>
+              This space is for clarity, healing, and rest after spiritual
+              pressure.
+            </h2>
 
-            <p>
-              Nailscar exists to make room for honesty, healing, and rest. You
-              don’t have to perform here. You don’t have to rush. You’re allowed
-              to think clearly, breathe, and move forward at a pace that honors
-              your humanity.
-            </p>
+            <div class="hero-text-scroll">
+              <p>
+                Nailscar exists for those who have lived under the weight of
+                fear, religious pressure, confusion, control, or teachings that
+                left the soul tense instead of free. You do not have to perform
+                here or explain everything perfectly, or force yourself into a
+                pace that ignores what you have carried. This is a place for
+                honesty, careful thought, and truth that does not crush. And for
+                the slow return of rest, where pressure once tried to pass
+                itself off as holy.
+              </p>
+
+              <p>
+                Some arrive here knowing exactly what harmed them. Others only
+                know that something in their spiritual life felt heavy,
+                distorted, or unsafe. Both belong here. You are allowed to name
+                what happened, to ask better questions, and to move toward
+                healing without pretending the wound was small.
+              </p>
+            </div>
+
+            <span class="scroll-hint">Scroll to read more</span>
+
+            <div class="hero-actions">
+              <a class="read-more-btn" href="legalism.html"
+                >Start with Legalism</a
+              >
+              <a class="read-more-btn" href="healing-pages.html"
+                >Go to Healing</a
+              >
+            </div>
           </div>
         </section>
+      </section>
 
+      <section class="hero-image-section fade-up" aria-label="Intro reflection">
+        <div class="hero-image-box">
+          <img
+            class="hero-image"
+            src="https://i.imgur.com/J6b5jcU.png"
+            alt="Hands reaching toward light, representing hope, clarity, and healing after spiritual pressure"
+          />
+        </div>
+      </section>
+
+      <section class="container">
         <section class="card fade-up">
-          <h2>Where to begin</h2>
-          <p>
-            You can explore stories, reflections, and resources that speak
-            honestly about healing from pressure, confusion, and harmful systems
-            — without replacing them with new ones.
-          </p>
+          <p class="hero-kicker">A quiet recognition</p>
+          <h2>If faith began to feel more like fear than freedom</h2>
+
+          <div class="section-text-scroll">
+            <p>
+              You may have been taught to call fear devotion, silence maturity,
+              exhaustion holiness, or confusion humility. You may have learned
+              to distrust your own questions while living under messages that
+              sounded spiritual on the surface but left you inwardly braced all
+              the time. If that feels familiar, this space was made with that
+              kind of wound in mind.
+            </p>
+
+            <p>
+              Not everything called holiness is holy. Not everything called
+              obedience is life-giving. And naming the difference is not
+              rebellion. Sometimes it is the beginning of truth.
+            </p>
+          </div>
+
+          <span class="scroll-hint">Scroll to read more</span>
         </section>
 
         <section class="card featured-quote fade-up">
-          <blockquote>
-            <p>You are allowed to slow down and still be moving forward.</p>
+          <blockquote class="quote-text-scroll">
+            <p>
+              You are allowed to slow down, tell the truth, and still be moving
+              forward.
+            </p>
           </blockquote>
+        </section>
+
+        <section class="home-pathways fade-up" aria-label="Main pathways">
+          <article class="card path-card">
+            <p class="hero-kicker">Understand it</p>
+            <h2>Legalism</h2>
+
+            <div class="path-text-scroll">
+              <p>
+                Learn what Christian legalism can look like, why it can be
+                difficult to recognize, and how it can quietly wound by dressing
+                fear in religious language.
+              </p>
+            </div>
+
+            <a class="read-more-btn" href="legalism.html">Read Legalism</a>
+          </article>
+
+          <article class="card path-card">
+            <p class="hero-kicker">Begin recovery</p>
+            <h2>Healing</h2>
+
+            <div class="path-text-scroll">
+              <p>
+                Begin with honest, gentle language for healing from pressure,
+                confusion, fear, shame, and the kind of spiritual harm that can
+                take time to name.
+              </p>
+            </div>
+
+            <a class="read-more-btn" href="healing-pages.html">Read Healing</a>
+          </article>
+
+          <article class="card path-card">
+            <p class="hero-kicker">Hear real voices</p>
+            <h2>Stories</h2>
+
+            <div class="path-text-scroll">
+              <p>
+                Spend time with lived experience, recognition, and the kind of
+                truth that becomes clearer when it is finally spoken out loud
+                without being softened.
+              </p>
+            </div>
+
+            <a class="read-more-btn" href="stories.html">Read Stories</a>
+          </article>
+
+          <article class="card path-card">
+            <p class="hero-kicker">Keep exploring</p>
+            <h2>Resources</h2>
+
+            <div class="path-text-scroll">
+              <p>
+                Find reflections, tools, and practical next steps for moving
+                toward clarity with steadiness, honesty, and care, rather than
+                pressure.
+              </p>
+            </div>
+
+            <a class="read-more-btn" href="resources.html">View Resources</a>
+          </article>
+        </section>
+
+        <section class="card fade-up">
+          <h2>What this site is trying to make room for</h2>
+
+          <div class="section-text-scroll">
+            <p>
+              A clearer view of Jesus. A more honest inner life. A slower, truer
+              kind of healing. Room to question what formed you. Space to
+              recover your voice. Freedom from religious pressure that taught
+              you to disappear in order to feel safe.
+            </p>
+
+            <p>
+              This site is not here to replace one controlling system with
+              another or to pressure you into quick conclusions or force a neat
+              ending onto painful things. It exists to help you think clearly,
+              recognize harm, and move toward what is clean, truthful, and life
+              giving.
+            </p>
+          </div>
+
+          <span class="scroll-hint">Scroll to read more</span>
+        </section>
+
+        <section class="card fade-up">
+          <p class="hero-kicker">Where to begin</p>
+          <h2>You do not have to read everything at once.</h2>
+
+          <div class="section-text-scroll">
+            <p>
+              If you are trying to understand what happened, begin with
+              <a href="legalism.html">Legalism</a>. If you already know
+              something in you is tired and needs room to breathe, begin with
+              <a href="healing-pages.html">Healing</a>. If you need language,
+              perspective, or next steps, visit the
+              <a href="resources.html">Resources</a> page.
+            </p>
+
+            <p>
+              You are not behind. You do not need to rush your own clarity. Take
+              what helps. Leave what you are not ready for. Return at a pace
+              that honors your humanity.
+            </p>
+          </div>
+
+          <span class="scroll-hint">Scroll to read more</span>
         </section>
       </section>
     </main>
