@@ -7,7 +7,344 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body data-page="stories">
+    <header class="si<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stories | Nailscar</title>
+    <meta
+      name="description"
+      content="Reflections and stories that help name the weight, confusion, and healing many people experience after Christian legalism."
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      .hero-copy {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .hero-copy h2,
+      .hero-copy p,
+      .hero-copy .hero-kicker {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .stories-hero-text,
+      .story-scroll,
+      .story-closing-scroll {
+        width: 100%;
+        box-sizing: border-box;
+        scroll-behavior: smooth;
+      }
+
+      .stories-hero-image-section {
+        width: 100%;
+        margin: 1.5rem 0 2rem;
+        padding: 0 1rem;
+        box-sizing: border-box;
+      }
+
+      .stories-hero-image-box {
+        width: min(100%, 1100px);
+        margin: 0 auto;
+        min-height: clamp(120px, 18vh, 180px);
+        padding: 1.5rem;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 20px;
+        overflow: visible;
+      }
+
+      .stories-hero-image-box img {
+        width: 100%;
+        height: auto;
+        border-radius: 16px;
+        display: block;
+      }
+
+      .stories-hero-image-box span {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .story-scroll p:first-child,
+      .stories-hero-text p:first-child,
+      .story-closing-scroll p:first-child {
+        margin-top: 0;
+      }
+
+      .story-scroll p:last-child,
+      .stories-hero-text p:last-child,
+      .story-closing-scroll p:last-child {
+        margin-bottom: 0;
+      }
+
+      @media (max-width: 1024px) {
+        .stories-hero-text {
+          max-height: clamp(150px, 22vh, 220px);
+          overflow-y: auto;
+          padding-right: 0.75rem;
+        }
+
+        .story-scroll {
+          max-height: clamp(180px, 24vh, 260px);
+          overflow-y: auto;
+          padding-right: 0.75rem;
+        }
+
+        .story-closing-scroll {
+          max-height: clamp(160px, 22vh, 220px);
+          overflow-y: auto;
+          padding-right: 0.75rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .hero-copy {
+          max-width: 100%;
+        }
+
+        .stories-hero-image-section {
+          padding: 0 1rem;
+          margin: 1rem 0 1.5rem;
+        }
+
+        .stories-hero-image-box {
+          min-height: clamp(110px, 16vh, 160px);
+          padding: 1.25rem;
+        }
+
+        .stories-hero-text {
+          max-height: clamp(140px, 20vh, 200px);
+          overflow-y: auto;
+          padding-right: 0.6rem;
+        }
+
+        .story-scroll {
+          max-height: clamp(160px, 22vh, 220px);
+          overflow-y: auto;
+          padding-right: 0.6rem;
+        }
+
+        .story-closing-scroll {
+          max-height: clamp(150px, 20vh, 200px);
+          overflow-y: auto;
+          padding-right: 0.6rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .stories-hero-image-section {
+          padding: 0 0.75rem;
+        }
+
+        .stories-hero-image-box {
+          padding: 1rem;
+        }
+
+        .stories-hero-text,
+        .story-scroll,
+        .story-closing-scroll {
+          padding-right: 0.5rem;
+        }
+
+        .stories-hero-text {
+          max-height: clamp(130px, 18vh, 180px);
+        }
+
+        .story-scroll {
+          max-height: clamp(150px, 20vh, 200px);
+        }
+
+        .story-closing-scroll {
+          max-height: clamp(140px, 18vh, 180px);
+        }
+      }
+    </style>
+  </head>
+
+  <body data-page="stories">
     <header class="site-header">
+      <div class="container">
+        <div class="site-branding">
+          <h1 class="site-title">Nailscar</h1>
+        </div>
+
+        <nav class="site-nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="healing-pages.html">Healing</a>
+          <a href="stories.html" aria-current="page">Stories</a>
+          <a href="blog.html">Blog</a>
+          <a href="resources.html">Resources</a>
+          <a href="legalism.html">Legalism</a>
+          <a href="contact.html">Contact</a>
+          <a href="faq.html">FAQ</a>
+        </nav>
+
+        <button
+          id="themeToggle"
+          class="theme-button"
+          type="button"
+          aria-label="Toggle comfort mode"
+        >
+          Comfort Mode
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="container">
+        <section class="card hero fade-up">
+          <div class="hero-copy">
+            <p class="hero-kicker">You are not the only one</p>
+
+            <h2>
+              Sometimes a story helps you say what your own mouth could not.
+            </h2>
+
+            <div class="stories-hero-text">
+              <p>
+                These reflections are for the ones who've carried a quiet
+                knowing in their chest, a sense that something wasn't as it
+                should be, even when the words wouldn't come and all they could
+                articulate was the weight of it pressing in.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section
+        class="stories-hero-image-section fade-up"
+        aria-label="Featured reflection"
+      >
+        <div class="stories-hero-image-box">
+          <img
+            src="https://i.imgur.com/4zxE0hZ.png"
+            alt="Quiet reflective path symbolizing shared stories and healing"
+          />
+        </div>
+      </section>
+
+      <section class="container">
+        <section class="card fade-up">
+          <article>
+            <h2>I thought fear meant I was serious about God</h2>
+            <div class="story-scroll">
+              <p>
+                For a long time, I believed my anxiety was a sign of spiritual
+                sensitivity. I thought the constant pressure in my chest meant I
+                cared. I thought peace would make me careless.
+              </p>
+              <p>
+                It took time to realize I had been trained to live in dread and
+                call it faithfulness. Once I saw that, I could not unsee it. The
+                hard part was learning that God was not asking me to stay
+                trapped there.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="card fade-up">
+          <article>
+            <h2>I learned to disappear and call it holiness</h2>
+            <div class="story-scroll">
+              <p>
+                I got very good at shrinking. I knew how to sound humble,
+                agreeable, and easy to lead. I knew how to silence discomfort
+                before it reached my face.
+              </p>
+              <p>
+                People praised me for it. But underneath that image was a person
+                who no longer knew how to tell the truth about what he felt.
+                Healing started when I stopped calling self-erasure maturity.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="card fade-up">
+          <article>
+            <h2>Leaving pressure behind did not make me lose Jesus</h2>
+            <div class="story-scroll">
+              <p>
+                I was told that if I stepped back from the system, I would drift
+                into rebellion. What actually happened was stranger and simpler:
+                I started breathing again.
+              </p>
+              <p>
+                Not every answer came at once. But the farther I got from
+                constant pressure, the clearer Jesus began to feel. Less
+                frantic. Less tangled. More solid. More merciful than I had been
+                taught to expect.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="card fade-up">
+          <article>
+            <h2>I needed language before I could heal</h2>
+            <div class="story-scroll">
+              <p>
+                I kept saying, "Maybe I'm just too sensitive." But the truth was
+                that I had no framework for spiritual harm. Once I had words
+                like fear, control, shame, and conditioning, things began to
+                come into focus.
+              </p>
+              <p>
+                Language did not fix everything. But it gave me a place to
+                stand. It let me stop arguing with my own reality.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="card featured-quote fade-up">
+          <h2>Why stories carry weight</h2>
+          <blockquote>
+            <p>
+              "Sometimes the first sign of healing is hearing your pain echoed
+              somewhere outside your own head."
+            </p>
+          </blockquote>
+        </section>
+
+        <section class="card fade-up">
+          <h2>If one of these stories feels close to home</h2>
+          <div class="story-closing-scroll">
+            <p>
+              Let it rest as understanding, not something you turn against
+              yourself, because seeing clearly can feel tender at first, but
+              it's also where things begin to make sense in a way they couldn't
+              before.
+            </p>
+            <p>You may want to spend time with the healing page next.</p>
+          </div>
+          <a class="read-more-btn" href="healing-pages.html">Go to Healing</a>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© Nailscar. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+te-header">
       <div class="container">
         <h1 class="site-title">Nailscar</h1>
         <p class="site-tagline">
