@@ -1450,3 +1450,7 @@ blockquote p {
     transform: none;
   }
 }
+body::before,
+body::after {
+  display: none !important;
+}
