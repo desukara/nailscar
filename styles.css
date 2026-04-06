@@ -2754,3 +2754,25 @@ blockquote p {
     transform: none;
   }
 }
+
+/* --- SAFE FIX: mobile scroll + dark flash --- */
+
+/* stop sideways swipe */
+html, body {
+  overflow-x: hidden;
+}
+
+/* keep decorative elements from extending page */
+body::before,
+body::after {
+  max-width: 100vw;
+}
+
+/* fix mobile white flash in dark mode */
+html.dark-mode {
+  color-scheme: dark;
+}
+
+html, body {
+  background-color: rgb(var(--bg-main-rgb));
+}
