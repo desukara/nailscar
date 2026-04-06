@@ -113,7 +113,7 @@ body {
       transparent 40%
     ),
     linear-gradient(180deg, #fbf7f3 0%, #f7f0e8 38%, #f3ebe3 68%, #f8f2eb 100%);
-  background-attachment: fixed;
+  background-attachment: scroll;
   transition: background var(--transition-slow), color var(--transition-soft);
   position: relative;
   overflow-x: hidden;
