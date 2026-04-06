@@ -1,3 +1,6 @@
+document.documentElement.classList.remove("no-js");
+document.documentElement.classList.add("js");
+
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const header = document.querySelector(".site-header");
@@ -5,13 +8,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const siteNav = document.getElementById("siteNav");
   const moreToggle = document.querySelector(".more-toggle");
+  const moreMenu = document.getElementById("moreMenu");
   const navMore = document.querySelector(".nav-more");
   const currentPage = body.dataset.page || "";
-  const reduceMotion = window.matchMedia(
+  const reduceMotionQuery = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
-  ).matches;
-
+  );
   const STORAGE_KEY = "nailscar-theme";
+  const MOBILE_BREAKPOINT = 900;
+
+  let reduceMotion = reduceMotionQuery.matches;
+  let lastMenuTrigger = null;
+  let lastMoreTrigger = null;
+
+  const expandState = new WeakMap();
 
   const pageClassMap = {
     home: "page-home",
@@ -37,25 +47,62 @@ document.addEventListener("DOMContentLoaded", () => {
     faq: "faq.html",
   };
 
-  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  const isMobileViewport = () => window.innerWidth <= MOBILE_BREAKPOINT;
+
+  const getSafeStorage = () => {
+    try {
+      return window.localStorage;
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const storage = getSafeStorage();
+
+  const getStoredTheme = () => {
+    if (!storage) return null;
+
+    try {
+      return storage.getItem(STORAGE_KEY);
+    } catch (error) {
+      return null;
+    }
+  };
+
+  const setStoredTheme = (value) => {
+    if (!storage) return;
+
+    try {
+      storage.setItem(STORAGE_KEY, value);
+    } catch (error) {
+      // ignore storage write failures
+    }
+  };
+
+  const getFocusableElements = (container) => {
+    if (!container) return [];
+
+    return Array.from(
+      container.querySelectorAll(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((element) => !element.hasAttribute("hidden"));
+  };
 
   if (pageClassMap[currentPage]) {
     body.classList.add(pageClassMap[currentPage]);
   }
 
-  const closeMoreMenu = () => {
-    if (!navMore || !moreToggle) return;
-    navMore.classList.remove("is-open");
-    moreToggle.setAttribute("aria-expanded", "false");
-  };
+  const updateHeaderState = () => {
+    if (!header) return;
 
-  const closeMenu = () => {
-    if (!siteNav || !menuToggle) return;
-    siteNav.classList.remove("is-open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open menu");
-    body.classList.remove("menu-open");
-    closeMoreMenu();
+    if (window.scrollY > 18) {
+      header.classList.add("is-compact");
+      body.classList.add("has-scrolled");
+    } else {
+      header.classList.remove("is-compact");
+      body.classList.remove("has-scrolled");
+    }
   };
 
   const syncThemeButtonLabel = () => {
@@ -65,31 +112,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const iconSpan = themeToggle.querySelector("span");
 
     themeToggle.setAttribute("aria-pressed", String(isDark));
-    themeToggle.setAttribute(
-      "aria-label",
-      isDark ? "Switch to light mode" : "Switch to dark mode"
-    );
+    themeToggle.setAttribute("aria-label", "Toggle theme");
 
     if (iconSpan) {
       iconSpan.textContent = isDark ? "☀" : "☾";
     }
   };
 
-  const applySavedTheme = () => {
-    const savedTheme = localStorage.getItem(STORAGE_KEY);
+  const applyTheme = (theme) => {
+    const systemPrefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
 
-    if (savedTheme === "dark") {
-      body.classList.add("dark-mode");
-    } else {
-      body.classList.remove("dark-mode");
+    const useDark =
+      theme === "dark" || (theme !== "light" && systemPrefersDark);
+
+    body.classList.toggle("dark-mode", useDark);
+    syncThemeButtonLabel();
+  };
+
+  const applySavedTheme = () => {
+    const savedTheme = getStoredTheme();
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      applyTheme(savedTheme);
+      return;
     }
 
-    syncThemeButtonLabel();
+    applyTheme(null);
   };
 
   const setActiveNavLink = () => {
     const navLinks = document.querySelectorAll(".site-nav a");
-    const activeHref = pageHrefMap[currentPage];
+    const currentPath =
+      window.location.pathname.split("/").pop() || "index.html";
+    const activeHref = pageHrefMap[currentPage] || currentPath;
 
     navLinks.forEach((link) => {
       const href = link.getAttribute("href");
@@ -104,186 +161,143 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  const getPageMoodColors = () => {
-    const isDark = body.classList.contains("dark-mode");
+  const setMoreMenuState = (isOpen, options = {}) => {
+    if (!navMore || !moreToggle || !moreMenu) return;
 
-    const palettes = {
-      default: isDark
-        ? {
-            glowA: "rgba(208, 154, 117, 0.22)",
-            glowB: "rgba(255, 230, 205, 0.08)",
-            glowC: "rgba(120, 82, 60, 0.14)",
-            gradient:
-              "linear-gradient(180deg, #201915 0%, #18120f 42%, #15100d 72%, #1d1713 100%)",
-          }
-        : {
-            glowA: "rgba(244, 208, 183, 0.34)",
-            glowB: "rgba(229, 188, 160, 0.26)",
-            glowC: "rgba(183, 145, 117, 0.14)",
-            gradient:
-              "linear-gradient(180deg, #fbf7f3 0%, #f6efe7 36%, #f3ece4 68%, #f7f1eb 100%)",
-          },
+    const { moveFocus = false, restoreFocus = false } = options;
 
-      legalism: isDark
-        ? {
-            glowA: "rgba(166, 116, 92, 0.18)",
-            glowB: "rgba(104, 73, 64, 0.12)",
-            glowC: "rgba(208, 154, 117, 0.08)",
-            gradient:
-              "linear-gradient(180deg, #1d1714 0%, #171210 42%, #140f0d 72%, #191412 100%)",
-          }
-        : {
-            glowA: "rgba(215, 184, 167, 0.28)",
-            glowB: "rgba(191, 161, 148, 0.2)",
-            glowC: "rgba(172, 140, 123, 0.12)",
-            gradient:
-              "linear-gradient(180deg, #faf6f3 0%, #f4ede8 36%, #efe7e1 68%, #f6f0ea 100%)",
-          },
+    navMore.classList.toggle("is-open", isOpen);
+    moreToggle.setAttribute("aria-expanded", String(isOpen));
+    moreMenu.hidden = !isOpen;
 
-      healing: isDark
-        ? {
-            glowA: "rgba(222, 171, 131, 0.24)",
-            glowB: "rgba(255, 238, 219, 0.1)",
-            glowC: "rgba(160, 115, 87, 0.12)",
-            gradient:
-              "linear-gradient(180deg, #201915 0%, #18120f 42%, #15110d 72%, #1e1712 100%)",
-          }
-        : {
-            glowA: "rgba(244, 214, 184, 0.36)",
-            glowB: "rgba(234, 197, 171, 0.24)",
-            glowC: "rgba(195, 159, 129, 0.14)",
-            gradient:
-              "linear-gradient(180deg, #fcf8f3 0%, #f7f0e8 36%, #f4ece3 68%, #f8f2eb 100%)",
-          },
+    if (isOpen) {
+      lastMoreTrigger =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : moreToggle;
 
-      stories: isDark
-        ? {
-            glowA: "rgba(190, 142, 116, 0.22)",
-            glowB: "rgba(255, 231, 214, 0.08)",
-            glowC: "rgba(116, 84, 71, 0.12)",
-            gradient:
-              "linear-gradient(180deg, #1f1815 0%, #18120f 42%, #15100d 72%, #1d1714 100%)",
-          }
-        : {
-            glowA: "rgba(237, 206, 186, 0.34)",
-            glowB: "rgba(226, 190, 170, 0.24)",
-            glowC: "rgba(183, 149, 129, 0.12)",
-            gradient:
-              "linear-gradient(180deg, #fbf7f4 0%, #f6efe8 36%, #f3ebe4 68%, #f7f1eb 100%)",
-          },
-
-      blog: isDark
-        ? {
-            glowA: "rgba(214, 160, 126, 0.24)",
-            glowB: "rgba(255, 238, 225, 0.09)",
-            glowC: "rgba(132, 95, 74, 0.12)",
-            gradient:
-              "linear-gradient(180deg, #201915 0%, #18120f 42%, #15100d 72%, #1d1713 100%)",
-          }
-        : {
-            glowA: "rgba(243, 211, 189, 0.36)",
-            glowB: "rgba(233, 193, 166, 0.26)",
-            glowC: "rgba(184, 146, 118, 0.14)",
-            gradient:
-              "linear-gradient(180deg, #fbf7f3 0%, #f7f0e8 36%, #f4ece4 68%, #f8f2eb 100%)",
-          },
-    };
-
-    return palettes[currentPage] || palettes.default;
-  };
-
-  const updateHeaderState = () => {
-    if (!header) return;
-
-    if (window.scrollY > 18) {
-      header.classList.add("is-compact");
-      body.classList.add("has-scrolled");
-    } else {
-      header.classList.remove("is-compact");
-      body.classList.remove("has-scrolled");
+      if (moveFocus) {
+        const firstItem = getFocusableElements(moreMenu)[0];
+        if (firstItem) firstItem.focus();
+      }
+    } else if (restoreFocus) {
+      const restoreTarget =
+        lastMoreTrigger instanceof HTMLElement ? lastMoreTrigger : moreToggle;
+      restoreTarget.focus();
     }
   };
 
-  const updateDynamicBackground = () => {
-    const scrollHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight
+  const closeMoreMenu = (options = {}) => {
+    setMoreMenuState(false, options);
+  };
+
+  const setMenuState = (isOpen, options = {}) => {
+    if (!siteNav || !menuToggle) return;
+
+    const { moveFocus = false, restoreFocus = false } = options;
+
+    siteNav.classList.toggle("is-open", isOpen);
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Close menu" : "Open menu"
     );
-    const viewportHeight = window.innerHeight;
-    const maxScrollable = Math.max(scrollHeight - viewportHeight, 1);
-    const scrollRatio = clamp(window.scrollY / maxScrollable, 0, 1);
-    const palette = getPageMoodColors();
+    body.classList.toggle("menu-open", isOpen);
 
-    const posAX = 12 + scrollRatio * 8;
-    const posAY = 16 + scrollRatio * 7;
-    const posBX = 86 - scrollRatio * 10;
-    const posBY = 14 + scrollRatio * 8;
-    const posCY = 110 - scrollRatio * 14;
+    if (!isOpen) {
+      closeMoreMenu();
 
-    body.style.background = `
-      radial-gradient(circle at ${posAX}% ${posAY}%, ${palette.glowA}, transparent 24%),
-      radial-gradient(circle at ${posBX}% ${posBY}%, ${palette.glowB}, transparent 28%),
-      radial-gradient(circle at 50% ${posCY}%, ${palette.glowC}, transparent 40%),
-      ${palette.gradient}
-    `;
+      if (restoreFocus) {
+        const restoreTarget =
+          lastMenuTrigger instanceof HTMLElement
+            ? lastMenuTrigger
+            : menuToggle;
+        restoreTarget.focus();
+      }
+
+      return;
+    }
+
+    lastMenuTrigger =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : menuToggle;
+
+    if (moveFocus && isMobileViewport()) {
+      const firstItem = getFocusableElements(siteNav)[0];
+      if (firstItem) firstItem.focus();
+    }
   };
 
-  let ticking = false;
-
-  const runScrollEffects = () => {
-    updateHeaderState();
-    updateDynamicBackground();
-    ticking = false;
+  const closeMenu = (options = {}) => {
+    setMenuState(false, options);
   };
 
-  const requestScrollEffects = () => {
-    if (ticking) return;
+  const animateHeight = (element, expand, button) => {
+    let state = expandState.get(element);
 
-    window.requestAnimationFrame(runScrollEffects);
-    ticking = true;
-  };
+    if (!state) {
+      state = { isAnimating: false };
+      expandState.set(element, state);
+    }
 
-  const animateHeight = (element, expand) => {
+    if (state.isAnimating) return;
+
+    state.isAnimating = true;
+
     if (reduceMotion) {
       element.classList.toggle("hidden", !expand);
       element.classList.toggle("show", expand);
+      element.classList.remove("is-expanding", "is-collapsing");
       element.style.height = "";
       element.style.opacity = "";
       element.style.overflow = "";
-      element.style.transition = "";
+
+      if (button) {
+        button.textContent = expand ? "Show Less" : "Read More";
+        button.setAttribute("aria-expanded", String(expand));
+      }
+
+      state.isAnimating = false;
       return;
     }
 
     element.style.overflow = "hidden";
-    element.style.transition = "height 420ms ease, opacity 320ms ease";
 
     if (expand) {
       element.classList.remove("hidden");
+      element.classList.add("is-expanding");
       element.style.height = "0px";
-      element.style.opacity = "0";
-
-      const targetHeight = element.scrollHeight;
+      element.style.opacity = "1";
 
       requestAnimationFrame(() => {
-        element.style.height = `${targetHeight}px`;
-        element.style.opacity = "1";
+        element.style.height = `${element.scrollHeight}px`;
       });
 
       const onExpandEnd = (event) => {
-        if (event.propertyName !== "height") return;
+        if (event.target !== element || event.propertyName !== "height") return;
 
+        element.classList.remove("is-expanding");
         element.classList.add("show");
-        element.style.height = "auto";
+        element.style.height = "";
+        element.style.opacity = "";
         element.style.overflow = "";
-        element.removeEventListener("transitionend", onExpandEnd);
+
+        if (button) {
+          button.textContent = "Show Less";
+          button.setAttribute("aria-expanded", "true");
+        }
+
+        state.isAnimating = false;
       };
 
-      element.addEventListener("transitionend", onExpandEnd);
+      element.addEventListener("transitionend", onExpandEnd, { once: true });
       return;
     }
 
-    const currentHeight = element.scrollHeight;
-    element.style.height = `${currentHeight}px`;
+    element.classList.remove("is-expanding");
+    element.classList.add("is-collapsing");
+    element.style.height = `${element.scrollHeight}px`;
     element.style.opacity = "1";
 
     requestAnimationFrame(() => {
@@ -292,17 +306,23 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const onCollapseEnd = (event) => {
-      if (event.propertyName !== "height") return;
+      if (event.target !== element || event.propertyName !== "height") return;
 
-      element.classList.remove("show");
+      element.classList.remove("show", "is-collapsing");
       element.classList.add("hidden");
       element.style.height = "";
       element.style.opacity = "";
       element.style.overflow = "";
-      element.removeEventListener("transitionend", onCollapseEnd);
+
+      if (button) {
+        button.textContent = "Read More";
+        button.setAttribute("aria-expanded", "false");
+      }
+
+      state.isAnimating = false;
     };
 
-    element.addEventListener("transitionend", onCollapseEnd);
+    element.addEventListener("transitionend", onCollapseEnd, { once: true });
   };
 
   const bindExpandableContent = () => {
@@ -315,16 +335,19 @@ document.addEventListener("DOMContentLoaded", () => {
       const hiddenText = card.querySelector(".toggle-text");
       if (!hiddenText) return;
 
+      const expanded = hiddenText.classList.contains("show");
+      button.setAttribute("aria-expanded", String(expanded));
+
       button.addEventListener("click", (event) => {
-        event.preventDefault();
+        const href = button.getAttribute("href");
+        if (href === "#" || hiddenText) {
+          event.preventDefault();
+        }
 
-        const isHidden =
-          hiddenText.classList.contains("hidden") ||
-          !hiddenText.classList.contains("show");
+        const currentExpanded =
+          button.getAttribute("aria-expanded") === "true";
 
-        animateHeight(hiddenText, isHidden);
-        button.textContent = isHidden ? "Show Less" : "Read More";
-        button.setAttribute("aria-expanded", String(isHidden));
+        animateHeight(hiddenText, !currentExpanded, button);
       });
     });
   };
@@ -339,9 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let delay = (index % 5) * 70;
 
       if (currentPage === "blog") {
-        const allMainCards = Array.from(
-          document.querySelectorAll("main .card")
-        );
+        const allMainCards = Array.from(document.querySelectorAll("main .card"));
         const card = item.closest(".card");
         const cardIndex = allMainCards.indexOf(card);
 
@@ -361,7 +382,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setRevealDelays(revealItems);
 
-    if (!("IntersectionObserver" in window)) {
+    if (reduceMotion || !("IntersectionObserver" in window)) {
       revealItems.forEach((item) => {
         item.classList.add("show");
       });
@@ -374,26 +395,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if (!entry.isIntersecting) return;
 
           entry.target.classList.add("show");
-
-          const nestedPathCards = entry.target.querySelectorAll(".path-card");
-          nestedPathCards.forEach((card, index) => {
-            if (reduceMotion) {
-              card.style.opacity = "1";
-              card.style.transform = "none";
-              return;
-            }
-
-            card.style.opacity = "0";
-            card.style.transform = "translateY(18px)";
-            card.style.transition =
-              "opacity 560ms ease, transform 560ms ease, box-shadow 220ms ease, border-color 220ms ease";
-
-            setTimeout(() => {
-              card.style.opacity = "1";
-              card.style.transform = "translateY(0)";
-            }, 90 * index);
-          });
-
           observer.unobserve(entry.target);
         });
       },
@@ -409,7 +410,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const bindBlogEnhancements = () => {
-    if (currentPage !== "blog") return;
+    if (currentPage !== "blog" || reduceMotion) return;
 
     const storyArticles = document.querySelectorAll(
       "#story-collection ~ .card article"
@@ -419,54 +420,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const storyCard = story.closest(".card");
       if (!storyCard) return;
 
-      story.setAttribute("tabindex", "0");
-
-      if (!reduceMotion) {
-        storyCard.style.transition =
-          "transform 260ms ease, box-shadow 260ms ease, border-color 260ms ease";
-      }
-
       storyCard.addEventListener("mouseenter", () => {
-        if (reduceMotion) return;
-        storyCard.style.transform = "translateY(-4px)";
+        storyCard.classList.add("is-hovered");
       });
 
       storyCard.addEventListener("mouseleave", () => {
-        storyCard.style.transform = "";
+        storyCard.classList.remove("is-hovered");
       });
 
-      const quote = story.querySelector("blockquote");
-      if (!quote || reduceMotion) return;
-
-      quote.style.transition = "transform 280ms ease, opacity 280ms ease";
-      quote.style.opacity = "0.95";
-
-      storyCard.addEventListener("mouseenter", () => {
-        quote.style.transform = "translateX(3px)";
-        quote.style.opacity = "1";
+      storyCard.addEventListener("focusin", () => {
+        storyCard.classList.add("is-hovered");
       });
 
-      storyCard.addEventListener("mouseleave", () => {
-        quote.style.transform = "translateX(0)";
-        quote.style.opacity = "0.95";
-      });
-    });
-
-    const submitSection = document.getElementById("submit-story");
-    if (!submitSection || reduceMotion) return;
-
-    const emailLinks = submitSection.querySelectorAll('a[href^="mailto:"]');
-
-    emailLinks.forEach((link) => {
-      link.style.display = "inline-block";
-      link.style.transition = "transform 180ms ease, color 180ms ease";
-
-      link.addEventListener("mouseenter", () => {
-        link.style.transform = "translateY(-1px)";
-      });
-
-      link.addEventListener("mouseleave", () => {
-        link.style.transform = "";
+      storyCard.addEventListener("focusout", () => {
+        if (!storyCard.contains(document.activeElement)) {
+          storyCard.classList.remove("is-hovered");
+        }
       });
     });
   };
@@ -476,40 +445,39 @@ document.addEventListener("DOMContentLoaded", () => {
   bindExpandableContent();
   bindRevealAnimations();
   bindBlogEnhancements();
+  updateHeaderState();
 
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-      body.classList.toggle("dark-mode");
-
-      const isDark = body.classList.contains("dark-mode");
-      localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
-
+      const isDark = !body.classList.contains("dark-mode");
+      body.classList.toggle("dark-mode", isDark);
+      setStoredTheme(isDark ? "dark" : "light");
       syncThemeButtonLabel();
-      updateDynamicBackground();
     });
   }
 
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
-      const isOpen = siteNav.classList.toggle("is-open");
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close menu" : "Open menu"
-      );
-      body.classList.toggle("menu-open", isOpen);
+      const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
 
-      if (!isOpen) {
-        closeMoreMenu();
+      if (isOpen) {
+        closeMenu({ restoreFocus: true });
+      } else {
+        setMenuState(true, { moveFocus: isMobileViewport() });
       }
     });
   }
 
-  if (moreToggle && navMore) {
-    moreToggle.addEventListener("click", () => {
-      if (window.innerWidth <= 900) {
-        const isOpen = navMore.classList.toggle("is-open");
-        moreToggle.setAttribute("aria-expanded", String(isOpen));
+  if (moreToggle && navMore && moreMenu) {
+    moreToggle.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const isOpen = moreToggle.getAttribute("aria-expanded") === "true";
+
+      if (isOpen) {
+        closeMoreMenu({ restoreFocus: true });
+      } else {
+        setMoreMenuState(true, { moveFocus: true });
       }
     });
   }
@@ -517,629 +485,106 @@ document.addEventListener("DOMContentLoaded", () => {
   if (siteNav) {
     siteNav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        if (window.innerWidth <= 900) {
+        if (isMobileViewport()) {
           closeMenu();
+        } else {
+          closeMoreMenu();
         }
       });
     });
   }
 
   document.addEventListener("click", (event) => {
-    if (!navMore || !moreToggle) return;
-    if (window.innerWidth > 900) return;
+    const target = event.target;
 
-    const clickedInsideMore = navMore.contains(event.target);
-    if (!clickedInsideMore) {
+    if (
+      navMore &&
+      moreToggle &&
+      moreMenu &&
+      target instanceof Node &&
+      !navMore.contains(target)
+    ) {
       closeMoreMenu();
+    }
+
+    if (
+      isMobileViewport() &&
+      siteNav &&
+      menuToggle &&
+      target instanceof Node &&
+      !siteNav.contains(target) &&
+      !menuToggle.contains(target)
+    ) {
+      closeMenu();
     }
   });
 
-  window.addEventListener("scroll", requestScrollEffects, { passive: true });
-  window.addEventListedocument.documentElement.classList.remove("no-js");
-  document.documentElement.classList.add("js");
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const body = document.body;
-    const header = document.querySelector(".site-header");
-    const themeToggle = document.getElementById("themeToggle");
-    const menuToggle = document.querySelector(".menu-toggle");
-    const siteNav = document.getElementById("siteNav");
-    const moreToggle = document.querySelector(".more-toggle");
-    const moreMenu = document.getElementById("moreMenu");
-    const navMore = document.querySelector(".nav-more");
-    const currentPage = body.dataset.page || "";
-    const reduceMotionQuery = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    );
-    const STORAGE_KEY = "nailscar-theme";
-    const MOBILE_BREAKPOINT = 900;
+    const moreOpen =
+      moreToggle && moreToggle.getAttribute("aria-expanded") === "true";
+    const menuOpen =
+      menuToggle && menuToggle.getAttribute("aria-expanded") === "true";
 
-    let reduceMotion = reduceMotionQuery.matches;
-    let lastMenuTrigger = null;
-    let lastMoreTrigger = null;
-
-    const expandState = new WeakMap();
-
-    const pageClassMap = {
-      home: "page-home",
-      about: "page-about",
-      resources: "page-resources",
-      contact: "page-contact",
-      legalism: "page-legalism",
-      healing: "page-healing",
-      stories: "page-stories",
-      blog: "page-blog",
-      faq: "page-faq",
-    };
-
-    const pageHrefMap = {
-      home: "index.html",
-      about: "about.html",
-      resources: "resources.html",
-      contact: "contact.html",
-      legalism: "legalism.html",
-      healing: "healing-pages.html",
-      stories: "stories.html",
-      blog: "blog.html",
-      faq: "faq.html",
-    };
-
-    const isMobileViewport = () => window.innerWidth <= MOBILE_BREAKPOINT;
-
-    const getSafeStorage = () => {
-      try {
-        return window.localStorage;
-      } catch (error) {
-        return null;
-      }
-    };
-
-    const storage = getSafeStorage();
-
-    const getStoredTheme = () => {
-      if (!storage) return null;
-
-      try {
-        return storage.getItem(STORAGE_KEY);
-      } catch (error) {
-        return null;
-      }
-    };
-
-    const setStoredTheme = (value) => {
-      if (!storage) return;
-
-      try {
-        storage.setItem(STORAGE_KEY, value);
-      } catch (error) {
-        /* ignore storage write failures */
-      }
-    };
-
-    const getFocusableElements = (container) => {
-      if (!container) return [];
-
-      return Array.from(
-        container.querySelectorAll(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
-        )
-      ).filter((element) => !element.hasAttribute("hidden"));
-    };
-
-    if (pageClassMap[currentPage]) {
-      body.classList.add(pageClassMap[currentPage]);
+    if (moreOpen) {
+      closeMoreMenu({ restoreFocus: true });
+      event.stopPropagation();
+      return;
     }
 
-    const updateHeaderState = () => {
-      if (!header) return;
-
-      if (window.scrollY > 18) {
-        header.classList.add("is-compact");
-        body.classList.add("has-scrolled");
-      } else {
-        header.classList.remove("is-compact");
-        body.classList.remove("has-scrolled");
-      }
-    };
-
-    const syncThemeButtonLabel = () => {
-      if (!themeToggle) return;
-
-      const isDark = body.classList.contains("dark-mode");
-      const iconSpan = themeToggle.querySelector("span");
-
-      themeToggle.setAttribute("aria-pressed", String(isDark));
-      themeToggle.setAttribute("aria-label", "Toggle theme");
-
-      if (iconSpan) {
-        iconSpan.textContent = isDark ? "☀" : "☾";
-      }
-    };
-
-    const applyTheme = (theme) => {
-      const systemPrefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-
-      const useDark =
-        theme === "dark" || (theme !== "light" && systemPrefersDark);
-
-      body.classList.toggle("dark-mode", useDark);
-      syncThemeButtonLabel();
-    };
-
-    const applySavedTheme = () => {
-      const savedTheme = getStoredTheme();
-
-      if (savedTheme === "dark" || savedTheme === "light") {
-        applyTheme(savedTheme);
-        return;
-      }
-
-      applyTheme(null);
-    };
-
-    const setActiveNavLink = () => {
-      const navLinks = document.querySelectorAll(".site-nav a");
-      const currentPath =
-        window.location.pathname.split("/").pop() || "index.html";
-      const activeHref = pageHrefMap[currentPage] || currentPath;
-
-      navLinks.forEach((link) => {
-        const href = link.getAttribute("href");
-
-        link.classList.remove("active");
-        link.removeAttribute("aria-current");
-
-        if (href && href === activeHref) {
-          link.classList.add("active");
-          link.setAttribute("aria-current", "page");
-        }
-      });
-    };
-
-    const setMoreMenuState = (isOpen, options = {}) => {
-      if (!navMore || !moreToggle || !moreMenu) return;
-
-      const { moveFocus = false, restoreFocus = false } = options;
-
-      navMore.classList.toggle("is-open", isOpen);
-      moreToggle.setAttribute("aria-expanded", String(isOpen));
-      moreMenu.hidden = !isOpen;
-
-      if (isOpen) {
-        lastMoreTrigger =
-          document.activeElement instanceof HTMLElement
-            ? document.activeElement
-            : moreToggle;
-
-        if (moveFocus) {
-          const firstItem = getFocusableElements(moreMenu)[0];
-          if (firstItem) {
-            firstItem.focus();
-          }
-        }
-      } else if (restoreFocus) {
-        const restoreTarget =
-          lastMoreTrigger instanceof HTMLElement ? lastMoreTrigger : moreToggle;
-        restoreTarget.focus();
-      }
-    };
-
-    const closeMoreMenu = (options = {}) => {
-      setMoreMenuState(false, options);
-    };
-
-    const setMenuState = (isOpen, options = {}) => {
-      if (!siteNav || !menuToggle) return;
-
-      const { moveFocus = false, restoreFocus = false } = options;
-
-      siteNav.classList.toggle("is-open", isOpen);
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      body.classList.toggle("menu-open", isOpen);
-
-      if (!isOpen) {
-        closeMoreMenu();
-
-        if (restoreFocus) {
-          const restoreTarget =
-            lastMenuTrigger instanceof HTMLElement
-              ? lastMenuTrigger
-              : menuToggle;
-          restoreTarget.focus();
-        }
-
-        return;
-      }
-
-      lastMenuTrigger =
-        document.activeElement instanceof HTMLElement
-          ? document.activeElement
-          : menuToggle;
-
-      if (moveFocus && isMobileViewport()) {
-        const firstItem = getFocusableElements(siteNav)[0];
-        if (firstItem) {
-          firstItem.focus();
-        }
-      }
-    };
-
-    const closeMenu = (options = {}) => {
-      setMenuState(false, options);
-    };
-
-    const animateHeight = (element, expand, button) => {
-      let state = expandState.get(element);
-
-      if (!state) {
-        state = { isAnimating: false };
-        expandState.set(element, state);
-      }
-
-      if (state.isAnimating) {
-        return;
-      }
-
-      state.isAnimating = true;
-
-      if (reduceMotion) {
-        element.classList.toggle("hidden", !expand);
-        element.classList.toggle("show", expand);
-        element.classList.remove("is-expanding", "is-collapsing");
-        element.style.height = "";
-        if (button) {
-          button.textContent = expand ? "Show Less" : "Read More";
-          button.setAttribute("aria-expanded", String(expand));
-        }
-        state.isAnimating = false;
-        return;
-      }
-
-      element.style.overflow = "hidden";
-
-      if (expand) {
-        element.classList.remove("hidden");
-        element.classList.add("is-expanding");
-        element.style.height = "0px";
-
-        requestAnimationFrame(() => {
-          element.style.height = `${element.scrollHeight}px`;
-        });
-
-        const onExpandEnd = (event) => {
-          if (event.target !== element || event.propertyName !== "height") {
-            return;
-          }
-
-          element.removeEventListener("transitionend", onExpandEnd);
-          element.classList.remove("is-expanding");
-          element.classList.add("show");
-          element.style.height = "";
-          element.style.overflow = "";
-
-          if (button) {
-            button.textContent = "Show Less";
-            button.setAttribute("aria-expanded", "true");
-          }
-
-          state.isAnimating = false;
-        };
-
-        element.addEventListener("transitionend", onExpandEnd, { once: true });
-        return;
-      }
-
-      element.classList.remove("is-expanding");
-      element.classList.add("is-collapsing");
-      element.style.height = `${element.scrollHeight}px`;
-
-      requestAnimationFrame(() => {
-        element.style.height = "0px";
-      });
-
-      const onCollapseEnd = (event) => {
-        if (event.target !== element || event.propertyName !== "height") {
-          return;
-        }
-
-        element.removeEventListener("transitionend", onCollapseEnd);
-        element.classList.remove("show", "is-collapsing");
-        element.classList.add("hidden");
-        element.style.height = "";
-        element.style.overflow = "";
-
-        if (button) {
-          button.textContent = "Read More";
-          button.setAttribute("aria-expanded", "false");
-        }
-
-        state.isAnimating = false;
-      };
-
-      element.addEventListener("transitionend", onCollapseEnd, { once: true });
-    };
-
-    const bindExpandableContent = () => {
-      const buttons = document.querySelectorAll(".read-more-btn");
-
-      buttons.forEach((button) => {
-        const card = button.closest(".card");
-        if (!card) return;
-
-        const hiddenText = card.querySelector(".toggle-text");
-        if (!hiddenText) return;
-
-        const expanded = hiddenText.classList.contains("show");
-        button.setAttribute("aria-expanded", String(expanded));
-
-        button.addEventListener("click", (event) => {
-          const href = button.getAttribute("href");
-          if (href === "#" || hiddenText) {
-            event.preventDefault();
-          }
-
-          const currentExpanded =
-            button.getAttribute("aria-expanded") === "true";
-
-          animateHeight(hiddenText, !currentExpanded, button);
-        });
-      });
-    };
-
-    const setRevealDelays = (revealItems) => {
-      revealItems.forEach((item, index) => {
-        if (reduceMotion) {
-          item.style.transitionDelay = "0ms";
-          return;
-        }
-
-        let delay = (index % 5) * 70;
-
-        if (currentPage === "blog") {
-          const allMainCards = Array.from(
-            document.querySelectorAll("main .card")
-          );
-          const card = item.closest(".card");
-          const cardIndex = allMainCards.indexOf(card);
-
-          if (cardIndex !== -1) {
-            delay = cardIndex * 80;
-          }
-        }
-
-        item.style.transitionDelay = `${delay}ms`;
-      });
-    };
-
-    const bindRevealAnimations = () => {
-      const revealItems = document.querySelectorAll(".fade-in, .fade-up");
-
-      if (!revealItems.length) return;
-
-      setRevealDelays(revealItems);
-
-      if (reduceMotion || !("IntersectionObserver" in window)) {
-        revealItems.forEach((item) => {
-          item.classList.add("show");
-        });
-        return;
-      }
-
-      const revealObserver = new IntersectionObserver(
-        (entries, observer) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-
-            entry.target.classList.add("show");
-            observer.unobserve(entry.target);
-          });
-        },
-        {
-          threshold: 0.14,
-          rootMargin: "0px 0px -50px 0px",
-        }
-      );
-
-      revealItems.forEach((item) => {
-        revealObserver.observe(item);
-      });
-    };
-
-    const bindBlogEnhancements = () => {
-      if (currentPage !== "blog" || reduceMotion) return;
-
-      const storyArticles = document.querySelectorAll(
-        "#story-collection ~ .card article"
-      );
-
-      storyArticles.forEach((story) => {
-        const storyCard = story.closest(".card");
-        if (!storyCard) return;
-
-        storyCard.addEventListener("mouseenter", () => {
-          storyCard.classList.add("is-hovered");
-        });
-
-        storyCard.addEventListener("mouseleave", () => {
-          storyCard.classList.remove("is-hovered");
-        });
-
-        storyCard.addEventListener("focusin", () => {
-          storyCard.classList.add("is-hovered");
-        });
-
-        storyCard.addEventListener("focusout", () => {
-          if (!storyCard.contains(document.activeElement)) {
-            storyCard.classList.remove("is-hovered");
-          }
-        });
-      });
-    };
-
-    applySavedTheme();
-    setActiveNavLink();
-    bindExpandableContent();
-    bindRevealAnimations();
-    bindBlogEnhancements();
+    if (menuOpen) {
+      closeMenu({ restoreFocus: true });
+    }
+  });
+
+  if (typeof reduceMotionQuery.addEventListener === "function") {
+    reduceMotionQuery.addEventListener("change", (event) => {
+      reduceMotion = event.matches;
+    });
+  } else if (typeof reduceMotionQuery.addListener === "function") {
+    reduceMotionQuery.addListener((event) => {
+      reduceMotion = event.matches;
+    });
+  }
+
+  const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const handleSystemThemeChange = (event) => {
+    const savedTheme = getStoredTheme();
+    if (savedTheme === "dark" || savedTheme === "light") return;
+    applyTheme(event.matches ? "dark" : "light");
+  };
+
+  if (typeof colorSchemeQuery.addEventListener === "function") {
+    colorSchemeQuery.addEventListener("change", handleSystemThemeChange);
+  } else if (typeof colorSchemeQuery.addListener === "function") {
+    colorSchemeQuery.addListener(handleSystemThemeChange);
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      updateHeaderState();
+    },
+    { passive: true }
+  );
+
+  window.addEventListener("resize", () => {
     updateHeaderState();
 
-    if (themeToggle) {
-      themeToggle.addEventListener("click", () => {
-        const isDark = !body.classList.contains("dark-mode");
-        body.classList.toggle("dark-mode", isDark);
-        setStoredTheme(isDark ? "dark" : "light");
-        syncThemeButtonLabel();
-      });
-    }
-
-    if (menuToggle && siteNav) {
-      menuToggle.addEventListener("click", () => {
-        const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
-
-        if (isOpen) {
-          closeMenu({ restoreFocus: true });
-        } else {
-          setMenuState(true, { moveFocus: isMobileViewport() });
-        }
-      });
-    }
-
-    if (moreToggle && navMore && moreMenu) {
-      moreToggle.addEventListener("click", (event) => {
-        event.preventDefault();
-
-        const isOpen = moreToggle.getAttribute("aria-expanded") === "true";
-
-        if (isOpen) {
-          closeMoreMenu({ restoreFocus: true });
-        } else {
-          setMoreMenuState(true, { moveFocus: true });
-        }
-      });
-    }
-
-    if (siteNav) {
-      siteNav.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          if (isMobileViewport()) {
-            closeMenu();
-          } else {
-            closeMoreMenu();
-          }
-        });
-      });
-    }
-
-    document.addEventListener("click", (event) => {
-      const target = event.target;
-
-      if (
-        navMore &&
-        moreToggle &&
-        moreMenu &&
-        target instanceof Node &&
-        !navMore.contains(target)
-      ) {
-        closeMoreMenu();
-      }
-
-      if (
-        isMobileViewport() &&
-        siteNav &&
-        menuToggle &&
-        target instanceof Node &&
-        !siteNav.contains(target) &&
-        !menuToggle.contains(target)
-      ) {
-        closeMenu();
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return;
-
-      const moreOpen =
-        moreToggle && moreToggle.getAttribute("aria-expanded") === "true";
-      const menuOpen =
-        menuToggle && menuToggle.getAttribute("aria-expanded") === "true";
-
-      if (moreOpen) {
-        closeMoreMenu({ restoreFocus: true });
-        event.stopPropagation();
-        return;
-      }
-
-      if (menuOpen) {
-        closeMenu({ restoreFocus: true });
-      }
-    });
-
-    if (typeof reduceMotionQuery.addEventListener === "function") {
-      reduceMotionQuery.addEventListener("change", (event) => {
-        reduceMotion = event.matches;
-      });
-    } else if (typeof reduceMotionQuery.addListener === "function") {
-      reduceMotionQuery.addListener((event) => {
-        reduceMotion = event.matches;
-      });
-    }
-
-    const colorSchemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleSystemThemeChange = (event) => {
-      const savedTheme = getStoredTheme();
-      if (savedTheme === "dark" || savedTheme === "light") return;
-      applyTheme(event.matches ? "dark" : "light");
-    };
-
-    if (typeof colorSchemeQuery.addEventListener === "function") {
-      colorSchemeQuery.addEventListener("change", handleSystemThemeChange);
-    } else if (typeof colorSchemeQuery.addListener === "function") {
-      colorSchemeQuery.addListener(handleSystemThemeChange);
-    }
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        updateHeaderState();
-      },
-      { passive: true }
-    );
-
-    window.addEventListener("resize", () => {
-      updateHeaderState();
-
-      if (!isMobileViewport()) {
-        body.classList.remove("menu-open");
-
-        if (siteNav) {
-          siteNav.classList.remove("is-open");
-        }
-
-        if (menuToggle) {
-          menuToggle.setAttribute("aria-expanded", "false");
-        }
-      }
-
-      closeMoreMenu();
-    });
-  });
-  ner("resize", () => {
-    requestScrollEffects();
-
-    if (window.innerWidth > 900) {
+    if (!isMobileViewport()) {
       body.classList.remove("menu-open");
+
       if (siteNav) {
         siteNav.classList.remove("is-open");
       }
+
       if (menuToggle) {
         menuToggle.setAttribute("aria-expanded", "false");
         menuToggle.setAttribute("aria-label", "Open menu");
       }
-      closeMoreMenu();
     }
-  });
 
-  requestScrollEffects();
+    closeMoreMenu();
+  });
 });
