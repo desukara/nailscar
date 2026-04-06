@@ -255,31 +255,61 @@
 
   <body data-page="home">
     <header class="site-header">
-      <div class="container">
+      <div class="container header-inner">
         <div class="site-branding">
-          <h1 class="site-title">Nailscar</h1>
+          <a
+            href="index.html"
+            class="site-title-link"
+            aria-label="Nailscar home"
+          >
+            <span class="site-title">Nailscar</span>
+          </a>
         </div>
 
-        <nav class="site-nav" aria-label="Main navigation">
-          <a href="index.html" aria-current="page">Home</a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="siteNav"
+        >
+          <span class="menu-toggle-lines" aria-hidden="true"></span>
+        </button>
+
+        <nav id="siteNav" class="site-nav" aria-label="Main navigation">
           <a href="about.html">About</a>
+          <a href="legalism.html">Legalism</a>
           <a href="healing-pages.html">Healing</a>
           <a href="stories.html">Stories</a>
-          <a href="blog.html">Blog</a>
           <a href="resources.html">Resources</a>
-          <a href="legalism.html">Legalism</a>
-          <a href="contact.html">Contact</a>
-          <a href="faq.html">FAQ</a>
-        </nav>
 
-        <button
-          id="themeToggle"
-          class="theme-button"
-          type="button"
-          aria-label="Toggle comfort mode"
-        >
-          Comfort Mode
-        </button>
+          <div class="nav-more">
+            <button
+              class="more-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="moreMenu"
+            >
+              More
+            </button>
+
+            <div id="moreMenu" class="more-menu">
+              <a href="index.html" aria-current="page">Home</a>
+              <a href="blog.html">Blog</a>
+              <a href="contact.html">Contact</a>
+              <a href="faq.html">FAQ</a>
+            </div>
+          </div>
+
+          <button
+            id="themeToggle"
+            class="theme-button theme-button--icon"
+            type="button"
+            aria-label="Toggle comfort mode"
+          >
+            <span aria-hidden="true">☾</span>
+          </button>
+        </nav>
       </div>
     </header>
 
