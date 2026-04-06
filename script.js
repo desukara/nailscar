@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const header = document.querySelector(".site-header");
   const themeToggle = document.getElementById("themeToggle");
+  const menuToggle = document.querySelector(".menu-toggle");
+  const siteNav = document.getElementById("siteNav");
+  const moreToggle = document.querySelector(".more-toggle");
+  const navMore = document.querySelector(".nav-more");
   const currentPage = body.dataset.page || "";
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -39,16 +43,36 @@ document.addEventListener("DOMContentLoaded", () => {
     body.classList.add(pageClassMap[currentPage]);
   }
 
+  const closeMoreMenu = () => {
+    if (!navMore || !moreToggle) return;
+    navMore.classList.remove("is-open");
+    moreToggle.setAttribute("aria-expanded", "false");
+  };
+
+  const closeMenu = () => {
+    if (!siteNav || !menuToggle) return;
+    siteNav.classList.remove("is-open");
+    menuToggle.setAttribute("aria-expanded", "false");
+    menuToggle.setAttribute("aria-label", "Open menu");
+    body.classList.remove("menu-open");
+    closeMoreMenu();
+  };
+
   const syncThemeButtonLabel = () => {
     if (!themeToggle) return;
 
     const isDark = body.classList.contains("dark-mode");
+    const iconSpan = themeToggle.querySelector("span");
 
     themeToggle.setAttribute("aria-pressed", String(isDark));
     themeToggle.setAttribute(
       "aria-label",
       isDark ? "Switch to light mode" : "Switch to dark mode"
     );
+
+    if (iconSpan) {
+      iconSpan.textContent = isDark ? "☀" : "☾";
+    }
   };
 
   const applySavedTheme = () => {
@@ -465,8 +489,67 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  if (menuToggle && siteNav) {
+    menuToggle.addEventListener("click", () => {
+      const isOpen = siteNav.classList.toggle("is-open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close menu" : "Open menu"
+      );
+      body.classList.toggle("menu-open", isOpen);
+
+      if (!isOpen) {
+        closeMoreMenu();
+      }
+    });
+  }
+
+  if (moreToggle && navMore) {
+    moreToggle.addEventListener("click", () => {
+      if (window.innerWidth <= 900) {
+        const isOpen = navMore.classList.toggle("is-open");
+        moreToggle.setAttribute("aria-expanded", String(isOpen));
+      }
+    });
+  }
+
+  if (siteNav) {
+    siteNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= 900) {
+          closeMenu();
+        }
+      });
+    });
+  }
+
+  document.addEventListener("click", (event) => {
+    if (!navMore || !moreToggle) return;
+    if (window.innerWidth > 900) return;
+
+    const clickedInsideMore = navMore.contains(event.target);
+    if (!clickedInsideMore) {
+      closeMoreMenu();
+    }
+  });
+
   window.addEventListener("scroll", requestScrollEffects, { passive: true });
-  window.addEventListener("resize", requestScrollEffects);
+  window.addEventListener("resize", () => {
+    requestScrollEffects();
+
+    if (window.innerWidth > 900) {
+      body.classList.remove("menu-open");
+      if (siteNav) {
+        siteNav.classList.remove("is-open");
+      }
+      if (menuToggle) {
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open menu");
+      }
+      closeMoreMenu();
+    }
+  });
 
   requestScrollEffects();
 });
