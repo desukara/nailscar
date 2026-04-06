@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,248 +9,6 @@
       content="Nailscar is a space for clarity, healing, and freedom for people recovering from Christian legalism, fear, and spiritual pressure."
     />
     <link rel="stylesheet" href="styles.css" />
-    <style>
-      .hero-copy {
-        max-width: 760px;
-        margin: 0 auto;
-        text-align: center;
-      }
-
-      .hero-copy h2,
-      .hero-copy p,
-      .hero-copy .hero-kicker {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .hero-actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.85rem;
-        justify-content: center;
-        margin-top: 1.35rem;
-      }
-
-      .hero-image-section {
-        width: 100%;
-        margin: 1.1rem 0 2rem;
-        padding: 0 1rem;
-        box-sizing: border-box;
-      }
-
-      .hero-image-box {
-        width: min(100%, 1100px);
-        margin: 0 auto;
-        padding: 0;
-        min-height: 0;
-        display: block;
-        border-radius: 22px;
-        overflow: hidden;
-        line-height: 0;
-      }
-
-      .hero-image {
-        display: block;
-        width: 100%;
-        height: auto;
-        margin: 0;
-        border-radius: 22px;
-      }
-
-      .hero-text-scroll,
-      .section-text-scroll,
-      .path-text-scroll,
-      .quote-text-scroll {
-        width: 100%;
-        overflow-y: auto;
-        padding-right: 0.75rem;
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-        scrollbar-width: thin;
-      }
-
-      .hero-text-scroll {
-        max-height: clamp(250px, 34vh, 430px);
-      }
-
-      .section-text-scroll {
-        max-height: clamp(220px, 30vh, 380px);
-      }
-
-      .path-text-scroll {
-        max-height: clamp(130px, 18vh, 170px);
-      }
-
-      .quote-text-scroll {
-        max-height: clamp(110px, 15vh, 145px);
-      }
-
-      .hero-text-scroll p:first-child,
-      .section-text-scroll p:first-child,
-      .path-text-scroll p:first-child,
-      .quote-text-scroll p:first-child {
-        margin-top: 0;
-      }
-
-      .hero-text-scroll p:last-child,
-      .section-text-scroll p:last-child,
-      .path-text-scroll p:last-child,
-      .quote-text-scroll p:last-child {
-        margin-bottom: 0;
-      }
-
-      .home-pathways {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.25rem;
-        margin: 1.5rem 0;
-      }
-
-      .path-card {
-        display: flex;
-        flex-direction: column;
-      }
-
-      .path-card .read-more-btn {
-        margin-top: 1rem;
-        align-self: flex-start;
-      }
-
-      .scroll-hint {
-        display: block;
-        margin-top: 0.85rem;
-        font-size: 0.92rem;
-        opacity: 0.78;
-      }
-
-      @media (max-width: 1024px) {
-        .hero-image-section {
-          margin: 1rem 0 1.75rem;
-        }
-
-        .hero-text-scroll {
-          max-height: clamp(250px, 38vh, 390px);
-        }
-
-        .section-text-scroll {
-          max-height: clamp(230px, 34vh, 330px);
-        }
-
-        .path-text-scroll {
-          max-height: clamp(125px, 18vh, 160px);
-        }
-
-        .quote-text-scroll {
-          max-height: clamp(110px, 15vh, 140px);
-        }
-      }
-
-      @media (max-width: 768px) {
-        .hero-copy {
-          max-width: 100%;
-        }
-
-        .hero-image-section {
-          padding: 0 0.9rem;
-          margin: 0.95rem 0 1.45rem;
-        }
-
-        .hero-image-box,
-        .hero-image {
-          border-radius: 18px;
-        }
-
-        .hero-actions {
-          flex-direction: column;
-          align-items: stretch;
-        }
-
-        .hero-actions .read-more-btn {
-          width: 100%;
-          text-align: center;
-        }
-
-        .home-pathways {
-          grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-
-        .hero-text-scroll {
-          max-height: clamp(260px, 42vh, 350px);
-          padding-right: 0.6rem;
-        }
-
-        .section-text-scroll {
-          max-height: clamp(240px, 38vh, 310px);
-          padding-right: 0.6rem;
-        }
-
-        .path-text-scroll {
-          max-height: clamp(135px, 20vh, 165px);
-          padding-right: 0.55rem;
-        }
-
-        .quote-text-scroll {
-          max-height: clamp(115px, 16vh, 145px);
-          padding-right: 0.55rem;
-        }
-
-        .scroll-hint {
-          font-size: 0.88rem;
-        }
-      }
-
-      @media (max-width: 480px) {
-        .hero-image-section {
-          padding: 0 0.75rem;
-          margin: 0.75rem 0 1.25rem;
-        }
-
-        .hero-image-box,
-        .hero-image {
-          border-radius: 16px;
-        }
-
-        .hero-text-scroll {
-          max-height: clamp(270px, 46vh, 340px);
-          padding-right: 0.5rem;
-        }
-
-        .section-text-scroll {
-          max-height: clamp(250px, 42vh, 300px);
-          padding-right: 0.5rem;
-        }
-
-        .path-text-scroll {
-          max-height: clamp(140px, 22vh, 170px);
-          padding-right: 0.45rem;
-        }
-
-        .quote-text-scroll {
-          max-height: clamp(120px, 16vh, 150px);
-          padding-right: 0.45rem;
-        }
-
-        .scroll-hint {
-          font-size: 0.84rem;
-        }
-      }
-
-      @media (min-width: 1025px) {
-        .hero-text-scroll,
-        .section-text-scroll,
-        .path-text-scroll,
-        .quote-text-scroll {
-          max-height: none;
-          overflow: visible;
-          padding-right: 0;
-        }
-
-        .scroll-hint {
-          display: none;
-        }
-      }
-    </style>
   </head>
 
   <body data-page="home">
@@ -269,7 +27,7 @@
         <button
           class="menu-toggle"
           type="button"
-          aria-label="Open menu"
+          aria-label="Main menu"
           aria-expanded="false"
           aria-controls="siteNav"
         >
@@ -293,7 +51,7 @@
               More
             </button>
 
-            <div id="moreMenu" class="more-menu">
+            <div id="moreMenu" class="more-menu" hidden>
               <a href="index.html" aria-current="page">Home</a>
               <a href="blog.html">Blog</a>
               <a href="contact.html">Contact</a>
@@ -305,7 +63,8 @@
             id="themeToggle"
             class="theme-button theme-button--icon"
             type="button"
-            aria-label="Toggle comfort mode"
+            aria-label="Toggle theme"
+            aria-pressed="false"
           >
             <span aria-hidden="true">☾</span>
           </button>
@@ -314,15 +73,15 @@
     </header>
 
     <main>
-      <section class="container">
+      <div class="container">
         <section class="card hero fade-up">
           <div class="hero-copy">
             <p class="hero-kicker">Welcome</p>
 
-            <h2>
+            <h1>
               This space is for clarity, healing, and rest after spiritual
               pressure.
-            </h2>
+            </h1>
 
             <div class="hero-text-scroll">
               <p>
@@ -357,19 +116,21 @@
             </div>
           </div>
         </section>
-      </section>
+      </div>
 
       <section class="hero-image-section fade-up" aria-label="Intro reflection">
         <div class="hero-image-box">
           <img
             class="hero-image"
-            src="https://i.imgur.com/J6b5jcU.png"
+            src="images/hero-home.png"
+            width="1600"
+            height="1067"
             alt="Hands reaching toward light, representing hope, clarity, and healing after spiritual pressure"
           />
         </div>
       </section>
 
-      <section class="container">
+      <div class="container">
         <section class="card fade-up">
           <p class="hero-kicker">A quiet recognition</p>
           <h2>If faith began to feel more like fear than freedom</h2>
@@ -511,7 +272,7 @@
 
           <span class="scroll-hint">Scroll to read more</span>
         </section>
-      </section>
+      </div>
     </main>
 
     <footer class="site-footer">
