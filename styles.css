@@ -2712,34 +2712,10 @@ blockquote p {
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
-    *,
-    *::before,
-    *::after {
-      animation: none !important;
-      transition-duration: 0.01ms !important;
-      transition-delay: 0ms !important;
-    }
-
-    .fade-up,
-    .fade-in {
-      opacity: 1;
-      transform: none;
-    }
-
-    .card:hover,
-    .path-card:hover,
-    .site-nav a:hover,
-    .more-toggle:hover,
-    .menu-toggle:hover,
-    .theme-button:hover,
-    .read-more-btn:hover {
-      transform: none;
-    }
+  html {
+    scroll-behavior: auto;
   }
+
   *,
   *::before,
   *::after {
@@ -2753,26 +2729,38 @@ blockquote p {
     opacity: 1;
     transform: none;
   }
+
+  .card:hover,
+  .path-card:hover,
+  .site-nav a:hover,
+  .more-toggle:hover,
+  .menu-toggle:hover,
+  .theme-button:hover,
+  .read-more-btn:hover {
+    transform: none;
+  }
 }
 
-/* --- SAFE FIX: mobile scroll + dark flash --- */
+/* === SAFE MOBILE FIXES === */
 
 /* stop sideways swipe */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
-/* keep decorative elements from extending page */
+/* prevent decorative overflow */
 body::before,
 body::after {
   max-width: 100vw;
 }
 
-/* fix mobile white flash in dark mode */
+/* fix dark mode mobile flash */
 html.dark-mode {
   color-scheme: dark;
 }
 
-html, body {
+html,
+body {
   background-color: rgb(var(--bg-main-rgb));
 }
