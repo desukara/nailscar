@@ -2755,22 +2755,13 @@ blockquote p {
   }
 }
 
-/* =========================
-   HARD FIX: Mobile Flicker Kill
-========================= */
-
 @media (hover: none) and (pointer: coarse) {
-
-  /* 1. Kill ALL problematic fixed/blurred animated layers */
   body::before,
   body::after,
   .hero::after {
     display: none !important;
-    animation: none !important;
-    filter: none !important;
   }
 
-  /* 2. Remove ALL backdrop filters (main culprit) */
   .site-header,
   .site-nav,
   .more-menu,
@@ -2779,7 +2770,6 @@ blockquote p {
     -webkit-backdrop-filter: none !important;
   }
 
-  /* 3. Force stable solid backgrounds */
   .site-header {
     background: rgba(var(--bg-main-rgb), 0.98) !important;
   }
@@ -2788,25 +2778,5 @@ blockquote p {
   .more-menu {
     background: rgba(var(--bg-main-rgb), 1) !important;
   }
-
-  /* 4. Stop GPU flicker from transform stacking */
-  .site-header,
-  .site-nav,
-  .site-nav.is-open {
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-
-  /* 5. Prevent height jitter in mobile nav */
-  .site-nav {
-    min-height: 100vh;
-    min-height: 100svh;
-    height: auto;
-  }
-
-  /* 6. Remove background repaint triggers */
-  body {
-    background-attachment: scroll;
-  }
 }
+  
