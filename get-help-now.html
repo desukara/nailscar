@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>Get Help Now - Nailscar Ministry</title>
     <meta
       name="description"
       content="Immediate crisis direction, emergency guidance, and suicide prevention resources in Japan from Nailscar Ministry."
     />
+    <link rel="alternate" hreflang="ja" href="get-help-now-ja.html" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -15,18 +17,38 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="get-help-now.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a href="get-help-now-ja.html" data-lang="ja" class="lang-link"
+              >日本語</a
+            >
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="get-help-now.html" class="active">Get Help</a>
           <a href="worried-about-someone.html">Help Someone</a>
@@ -39,14 +61,51 @@
     </header>
 
     <main>
-      <section class="page-header">
-        <div class="container">
-          <h1>Get Help Now</h1>
-          <p>
-            If you are in immediate danger, feel unable to stay safe, or think
-            you may act on suicidal thoughts, use the emergency options below
-            right now.
-          </p>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Immediate Crisis Direction</span>
+            <h1>Get Help Now</h1>
+            <p>
+              If you are in immediate danger, feel unable to stay safe, or think
+              you may act on suicidal thoughts, use the emergency options below
+              right now.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-danger" href="tel:119">Call 119</a>
+              <a class="btn btn-secondary" href="tel:110">Call 110</a>
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                <strong>Important:</strong> If you may hurt yourself, have
+                already taken action, have a weapon nearby, or cannot stay safe,
+                do not wait for a message, email, or callback.
+              </p>
+            </div>
+          </div>
+
+          <aside class="hero-panel content-flow">
+            <h2>What to do right now</h2>
+            <p class="muted">
+              Use the fastest safe option available to you right now.
+            </p>
+
+            <ul class="clean-list">
+              <li><strong>Call 119</strong> for ambulance / fire emergency.</li>
+              <li><strong>Call 110</strong> for police emergency.</li>
+              <li>
+                <strong
+                  >Go to the nearest hospital or emergency room now.</strong
+                >
+              </li>
+              <li>
+                <strong>Tell someone near you immediately</strong> that you are
+                not safe to be alone.
+              </li>
+            </ul>
+          </aside>
         </div>
       </section>
 
@@ -308,7 +367,7 @@
         <div class="container">
           <div class="card content-flow center">
             <h2>You do not have to handle this alone.</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               Use the emergency options above first if you are not safe. If you
               need support, go to resources or contact us for pastoral
               direction.
@@ -336,6 +395,23 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="get-help-now.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a href="get-help-now-ja.html" data-lang="ja" class="lang-link"
+            >日本語</a
+          >
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
