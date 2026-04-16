@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>Resources - Nailscar Ministry</title>
     <meta
       name="description"
       content="Suicide prevention, crisis support, and mental health resources in Japan. English and Japanese support options."
     />
+    <link rel="alternate" hreflang="ja" href="resources-ja.html" />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -16,18 +18,38 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="resources.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a href="resources-ja.html" data-lang="ja" class="lang-link"
+              >日本語</a
+            >
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="get-help-now.html">Get Help</a>
           <a href="worried-about-someone.html">Help Someone</a>
@@ -40,18 +62,51 @@
     </header>
 
     <main>
-      <section class="page-header">
-        <div class="container">
-          <h1>Resources</h1>
-          <p>
-            These are crisis lines, support services, and organizations in Japan
-            that can help. If you are in immediate danger, go to the Get Help
-            page first.
-          </p>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Crisis and Support Resources</span>
+            <h1>Resources</h1>
+            <p>
+              These are crisis lines, support services, and organizations in
+              Japan that can help. If you are in immediate danger, go to the Get
+              Help page first.
+            </p>
+
+            <div class="hero-actions">
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+              <a href="contact.html" class="btn btn-secondary">Contact</a>
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                These resources are here to help you find real support. Whether
+                you need crisis help, someone to listen, or a next step toward
+                ongoing care, start with the option that best fits your
+                situation.
+              </p>
+            </div>
+          </div>
+
+          <aside class="hero-panel content-flow">
+            <h2>What you will find here</h2>
+            <p class="muted">
+              Support options in Japan for both English and Japanese speakers,
+              plus different kinds of help that may be available.
+            </p>
+
+            <ul class="clean-list">
+              <li><strong>English support in Japan</strong></li>
+              <li><strong>Japanese-language support</strong></li>
+              <li><strong>Types of help available</strong></li>
+              <li><strong>Emergency reminder</strong></li>
+            </ul>
+          </aside>
         </div>
       </section>
 
-      <!-- EMERGENCY REMINDER -->
       <section class="section section-tight">
         <div class="container">
           <div class="warning-box content-flow">
@@ -69,10 +124,15 @@
         </div>
       </section>
 
-      <!-- ENGLISH SUPPORT -->
       <section class="section">
         <div class="container">
-          <h2 class="section-title">English support in Japan</h2>
+          <div class="center max-text">
+            <h2 class="section-title">English support in Japan</h2>
+            <p class="section-subtitle">
+              These options may help if you want support in English while in
+              Japan.
+            </p>
+          </div>
 
           <div class="grid-2 spacer-lg">
             <article class="card content-flow">
@@ -85,6 +145,7 @@
               <a
                 href="https://telljp.com/lifeline/"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="btn btn-primary"
                 >Visit TELL</a
               >
@@ -100,6 +161,7 @@
               <a
                 href="http://www.since2011.net/yorisoi/"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="btn btn-primary"
                 >Visit Yorisoi</a
               >
@@ -114,6 +176,7 @@
               <a
                 href="https://jhelp.com/"
                 target="_blank"
+                rel="noopener noreferrer"
                 class="btn btn-primary"
                 >Visit Japan Helpline</a
               >
@@ -122,10 +185,15 @@
         </div>
       </section>
 
-      <!-- JAPANESE SUPPORT -->
       <section class="section">
         <div class="container">
-          <h2 class="section-title">Japanese-language support</h2>
+          <div class="center max-text">
+            <h2 class="section-title">Japanese-language support</h2>
+            <p class="section-subtitle">
+              These are commonly used support options for people seeking help in
+              Japanese.
+            </p>
+          </div>
 
           <div class="grid-2 spacer-lg">
             <article class="card content-flow">
@@ -148,10 +216,14 @@
         </div>
       </section>
 
-      <!-- TYPES OF HELP -->
       <section class="section">
         <div class="container">
-          <h2 class="section-title">Types of help available</h2>
+          <div class="center max-text">
+            <h2 class="section-title">Types of help available</h2>
+            <p class="section-subtitle">
+              Different situations call for different kinds of support.
+            </p>
+          </div>
 
           <div class="grid-3 spacer-lg">
             <article class="card">
@@ -174,7 +246,6 @@
         </div>
       </section>
 
-      <!-- MINISTRY DISCLAIMER -->
       <section class="section">
         <div class="container">
           <div class="card content-flow">
@@ -196,12 +267,11 @@
         </div>
       </section>
 
-      <!-- FINAL CTA -->
       <section class="section">
         <div class="container">
           <div class="card content-flow center">
             <h2>You are not alone.</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               If you are struggling right now, start with the Get Help page or
               reach out to one of the resources above.
             </p>
@@ -228,6 +298,23 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="resources.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a href="resources-ja.html" data-lang="ja" class="lang-link"
+            >日本語</a
+          >
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
