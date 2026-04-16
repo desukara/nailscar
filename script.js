@@ -1,7 +1,7 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const menuToggle = document.querySelector(".menu-toggle");
   const siteNav = document.querySelector(".site-nav");
+  const sectionsToReveal = document.querySelectorAll(".card, .hero-note");
 
   if (menuToggle && siteNav) {
     menuToggle.addEventListener("click", () => {
@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
       menuToggle.setAttribute("aria-expanded", String(isOpen));
     });
   }
-
-  const sectionsToReveal = document.querySelectorAll(".card, .hero-note");
 
   if ("IntersectionObserver" in window && sectionsToReveal.length) {
     const observer = new IntersectionObserver(
