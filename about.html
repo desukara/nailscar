@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>About - Nailscar Ministry</title>
     <meta
       name="description"
@@ -16,18 +17,36 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="about.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a href="about-ja.html" data-lang="ja" class="lang-link">日本語</a>
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="get-help-now.html">Get Help</a>
           <a href="worried-about-someone.html">Help Someone</a>
@@ -40,13 +59,71 @@
     </header>
 
     <main>
-      <section class="page-header">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">About Nailscar Ministry</span>
+            <h1>You are not alone.</h1>
+            <p>
+              Nailscar Ministry is a faith-based suicide prevention, awareness,
+              survivor support, and crisis-direction ministry.
+            </p>
+
+            <div class="hero-actions">
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+              <a href="resources.html" class="btn btn-secondary"
+                >View Resources</a
+              >
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                <strong>Important:</strong> Nailscar Ministry is not a medical,
+                psychiatric, or licensed counseling service. We are not
+                psychologists, therapists, or emergency responders. We offer
+                faith-based support, awareness, survivor care, and help pointing
+                people toward appropriate crisis and professional resources.
+              </p>
+            </div>
+          </div>
+
+          <aside class="hero-panel content-flow">
+            <h2>What this page covers</h2>
+            <p class="muted">
+              Learn who founded this ministry, what it is, what it is not, and
+              what it aims to do.
+            </p>
+
+            <ul class="clean-list">
+              <li><strong>Who this is</strong></li>
+              <li><strong>What Nailscar Ministry is</strong></li>
+              <li><strong>What this ministry is not</strong></li>
+              <li><strong>What this ministry aims to do</strong></li>
+              <li><strong>Approach and tone</strong></li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section-tight">
         <div class="container">
-          <h1>About Nailscar Ministry</h1>
-          <p>
-            A faith-based suicide prevention, awareness, survivor support, and
-            crisis-direction ministry.
-          </p>
+          <div class="warning-box content-flow">
+            <h2>If this is an emergency</h2>
+            <p>
+              If you are in immediate danger, think you may act on suicidal
+              thoughts, or someone is at immediate risk, contact emergency
+              services or go to the nearest hospital immediately.
+            </p>
+            <p>
+              Do not wait for an email reply or a website response in a
+              life-threatening situation.
+            </p>
+            <a href="get-help-now.html" class="btn btn-danger"
+              >Emergency Help Page</a
+            >
+          </div>
         </div>
       </section>
 
@@ -164,7 +241,7 @@
         <div class="container">
           <div class="card content-flow center">
             <h2>You are not alone.</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               If you are struggling, or if you are trying to help someone else,
               start with the page that best fits your situation.
             </p>
@@ -194,6 +271,21 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="about.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a href="about-ja.html" data-lang="ja" class="lang-link">日本語</a>
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
