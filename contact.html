@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>Contact - Nailscar Ministry</title>
     <meta
       name="description"
       content="Contact Nailscar Ministry for support direction, ministry questions, prayer, or general contact."
     />
+    <link rel="alternate" hreflang="ja" href="contact-ja.html" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -15,18 +17,38 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="contact.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a href="contact-ja.html" data-lang="ja" class="lang-link"
+              >日本語</a
+            >
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="get-help-now.html">Get Help</a>
           <a href="worried-about-someone.html">Help Someone</a>
@@ -39,13 +61,49 @@
     </header>
 
     <main>
-      <section class="page-header">
-        <div class="container">
-          <h1>Contact</h1>
-          <p>
-            If you would like to reach Nailscar Ministry directly, you can email
-            James here.
-          </p>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Contact Nailscar Ministry</span>
+            <h1>Contact</h1>
+            <p>
+              If you would like to reach Nailscar Ministry directly, you can
+              email James here.
+            </p>
+
+            <div class="hero-actions">
+              <a href="mailto:Jesuslebenjp@gmail.com" class="btn btn-primary"
+                >Email James</a
+              >
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                If you need support direction, would like to ask a question,
+                want to connect with Nailscar Ministry, or would like prayer,
+                you are welcome to email directly.
+              </p>
+            </div>
+          </div>
+
+          <aside class="hero-panel content-flow">
+            <h2>How can this page help?</h2>
+            <p class="muted">
+              Use this page for direct contact, support direction, prayer
+              requests, and general ministry questions.
+            </p>
+
+            <ul class="clean-list">
+              <li><strong>Support direction</strong></li>
+              <li><strong>Prayer requests</strong></li>
+              <li><strong>Questions about resources</strong></li>
+              <li><strong>General contact</strong></li>
+              <li><strong>Pastoral connection</strong></li>
+            </ul>
+          </aside>
         </div>
       </section>
 
@@ -164,7 +222,7 @@
         <div class="container">
           <div class="card content-flow center">
             <h2>You are not alone.</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               If reaching out is hard, take the smallest next step you can. If
               email is the next step, use it. If this is an emergency, use the
               Get Help page immediately.
@@ -194,6 +252,21 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="contact.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a href="contact-ja.html" data-lang="ja" class="lang-link">日本語</a>
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
