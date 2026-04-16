@@ -1,149 +1,298 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nailscar Outreach</title>
+    <title>Home - Nailscar Ministry</title>
     <meta
       name="description"
-      content="Bilingual suicide prevention outreach and survivor support in Japan, with English-only phone support and bilingual resource guidance."
+      content="Nailscar Ministry is a faith-based suicide prevention, awareness, survivor support, and crisis-direction website helping people find the right resources in Japan."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="site-header">
-      <div class="container nav">
-        <a href="index.html" class="logo">Nailscar Outreach</a>
+      <div class="container nav-wrap">
+        <a href="index.html" class="logo">Nailscar Ministry</a>
 
         <button
           class="menu-toggle"
+          id="menu-toggle"
           aria-label="Open menu"
           aria-expanded="false"
+          aria-controls="site-nav"
+          type="button"
         >
           ☰
         </button>
 
-        <nav class="site-nav">
-          <a href="index.html">Home / ホーム</a>
-          <a href="about.html">About / 団体概要</a>
-          <a href="contact.html">Contact / 連絡先</a>
+        <nav class="site-nav" id="site-nav">
+          <a href="index.html" class="active">Home</a>
+          <a href="get-help-now.html">Get Help</a>
+          <a href="worried-about-someone.html">Help Someone</a>
+          <a href="survivors.html">Survivors</a>
+          <a href="resources.html">Resources</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
         </nav>
       </div>
     </header>
 
     <main>
       <section class="hero">
-        <div class="container">
-          <p class="eyebrow">Support in Japan / 日本での支援</p>
-
-          <h1>You are not alone.</h1>
-          <p class="lead">
-            Nailscar Outreach is a simple, bilingual support initiative based in
-            Japan. We offer suicide prevention outreach and survivor support for
-            people in the Greater Tokyo area.
-          </p>
-
-          <h2 class="jp-heading">ひとりではありません。</h2>
-          <p class="jp-text">
-            Nailscar Outreach
-            は、日本を拠点とするシンプルな日英バイリンガル支援活動です。
-            首都圏を中心に、自殺予防の啓発活動とサバイバー支援を行っています。
-          </p>
-
-          <div class="hero-note">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow"
+              >Suicide Prevention / Awareness / Crisis Direction</span
+            >
+            <h1>You are not alone.</h1>
             <p>
-              <strong>Phone support:</strong> English only<br />
-              <strong>Other support and information:</strong> English and
-              Japanese
+              Nailscar Ministry is a faith-based suicide prevention, awareness,
+              survivor support, and crisis-direction ministry. We aim to help
+              people in pain, people grieving, and people worried about someone
+              they love find the next right step and the right resources.
             </p>
-            <p class="jp-text">
-              <strong>電話サポート：</strong>英語のみ<br />
-              <strong>その他の支援・情報提供：</strong>英語と日本語
-            </p>
+
+            <div class="hero-actions">
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+              <a href="resources.html" class="btn btn-secondary"
+                >Find Resources</a
+              >
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                <strong>Important:</strong> Nailscar Ministry is not a medical,
+                psychiatric, or licensed counseling service. We are not
+                psychologists, therapists, or emergency responders. We offer
+                faith-based support, awareness, survivor care, and help pointing
+                people toward appropriate crisis and professional resources.
+              </p>
+            </div>
           </div>
 
-          <div class="hero-actions">
-            <a class="button primary" href="contact.html"
-              >Get Support / 相談する</a
-            >
-            <a class="button secondary" href="about.html"
-              >Learn More / 詳しく見る</a
-            >
-          </div>
+          <aside class="hero-panel content-flow">
+            <h2>Where do you need to go?</h2>
+            <p class="muted">
+              Start with the page that best matches your situation right now.
+            </p>
+
+            <ul class="clean-list">
+              <li>
+                <a href="get-help-now.html"><strong>I need help now</strong></a>
+              </li>
+              <li>
+                <a href="worried-about-someone.html"
+                  ><strong>I’m worried about someone</strong></a
+                >
+              </li>
+              <li>
+                <a href="survivors.html"><strong>I am a survivor</strong></a>
+              </li>
+              <li>
+                <a href="resources.html"
+                  ><strong>I need crisis or support resources</strong></a
+                >
+              </li>
+            </ul>
+          </aside>
         </div>
       </section>
 
-      <section class="section urgent">
+      <section class="section section-tight">
         <div class="container">
-          <div class="card urgent-card">
-            <h2>Need help now?</h2>
+          <div class="warning-box content-flow">
+            <h2>If this is an emergency</h2>
             <p>
-              If you are in immediate danger or at risk of harm, please contact
-              local emergency services or go to the nearest hospital right away.
+              If you are in immediate danger, think you may act on suicidal
+              thoughts, or someone is at immediate risk, contact emergency
+              services or go to the nearest hospital immediately.
             </p>
-
-            <h3 class="jp-heading">今すぐ支援が必要ですか？</h3>
-            <p class="jp-text">
-              すぐに危険がある場合や緊急の支援が必要な場合は、地域の緊急サービスに連絡するか、
-              最寄りの病院にすぐ行ってください。
+            <p>
+              Do not wait for an email reply or a website response in a
+              life-threatening situation.
             </p>
-
-            <a class="button primary" href="contact.html"
-              >Contact Us / 連絡する</a
+            <a href="get-help-now.html" class="btn btn-danger"
+              >Emergency Help Page</a
             >
           </div>
         </div>
       </section>
 
       <section class="section">
-        <div class="container grid-two">
-          <div class="card">
-            <h2>What we do</h2>
-            <p>
-              We provide outreach, encouragement, information, and support
-              connections for people in Japan, including Japanese people,
-              international residents, and bilingual communities.
-            </p>
-
-            <h3 class="jp-heading">活動内容</h3>
-            <p class="jp-text">
-              日本にいる方々に向けて、情報提供、寄り添い、支援先の案内、啓発活動を行います。
-              日本人の方、海外出身の方、バイリンガルの方々も対象です。
+        <div class="container">
+          <div class="center max-text">
+            <h2 class="section-title">What Nailscar Ministry is</h2>
+            <p class="section-subtitle">
+              A faith-based ministry devoted to suicide prevention awareness,
+              survivor support, compassionate presence, and helping people find
+              the right crisis and community resources.
             </p>
           </div>
 
-          <div class="card">
-            <h2>How support works</h2>
-            <p>
-              We currently offer phone support in English. Written information,
-              outreach materials, and general guidance are available in English
-              and Japanese.
-            </p>
+          <div class="grid-3 spacer-lg">
+            <article class="card">
+              <h3>Prevention and awareness</h3>
+              <p>
+                We want to speak openly and compassionately about suicide, pain,
+                despair, warning signs, and the importance of reaching for help.
+              </p>
+            </article>
 
-            <h3 class="jp-heading">支援の形</h3>
-            <p class="jp-text">
-              現在、電話でのサポートは英語のみです。文章による情報提供、啓発資料、
-              一般的な案内は英語と日本語の両方で提供しています。
+            <article class="card">
+              <h3>Support for survivors</h3>
+              <p>
+                We recognize the deep grief and ongoing reality faced by suicide
+                loss survivors and others living with the aftermath.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Direction to real help</h3>
+              <p>
+                We help point people toward crisis lines, emergency services,
+                hospitals, community supports, and other appropriate resources.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="grid-2">
+            <article class="card content-flow">
+              <h2>What we are not</h2>
+              <p>
+                We believe honesty builds trust. Nailscar Ministry is not a
+                licensed mental health clinic, not psychiatric care, and not a
+                substitute for emergency or professional treatment.
+              </p>
+              <div class="callout">
+                <strong>Please note:</strong> We do not diagnose, provide
+                medical treatment, replace therapy, or function as a crisis
+                hotline.
+              </div>
+            </article>
+
+            <article class="card content-flow">
+              <h2>What we can do</h2>
+              <p>
+                We can offer faith-based encouragement, survivor understanding,
+                pastoral perspective, compassionate listening, and direction
+                toward the right next resource when someone is hurting.
+              </p>
+              <div class="callout">
+                <strong>Our role:</strong> support, awareness, spiritual care,
+                and resource direction.
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="card content-flow">
+            <h2>Why this ministry exists</h2>
+            <p>
+              Nailscar Ministry is shaped by firsthand experience with suicide
+              loss and survival. This is not abstract. It comes from real pain,
+              real grief, and the conviction that people in crisis and families
+              in shock need compassion, honesty, and clear direction.
+            </p>
+            <p>
+              The heart behind this ministry is simple: to help people know they
+              are not alone, to speak about suicide with truth and mercy, and to
+              help point people toward life-giving help.
             </p>
           </div>
         </div>
       </section>
 
-      <section class="section soft">
+      <section class="section">
         <div class="container">
-          <div class="card center-card">
-            <h2>Small steps matter.</h2>
-            <p>
-              Reaching out can be difficult. We want this site to be a calm
-              first step toward support, connection, and hope.
+          <div class="grid-2">
+            <article class="card content-flow">
+              <h2>For people in crisis</h2>
+              <p>
+                When someone is overwhelmed, they often do not need a long
+                explanation first. They need a clear next step.
+              </p>
+              <p>
+                Visit the Get Help page for immediate direction and crisis
+                resource guidance.
+              </p>
+              <a href="get-help-now.html" class="btn btn-primary"
+                >Go to Get Help</a
+              >
+            </article>
+
+            <article class="card content-flow">
+              <h2>For family and friends</h2>
+              <p>
+                If you are scared for someone, unsure what to say, or afraid of
+                saying the wrong thing, you are not alone either.
+              </p>
+              <p>
+                Visit the Help Someone page for guidance on how to respond and
+                where to turn.
+              </p>
+              <a href="worried-about-someone.html" class="btn btn-primary"
+                >Help Someone</a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="lang-block">
+            <div class="lang-en content-flow">
+              <span class="lang-tag">English</span>
+              <h2>You are not alone.</h2>
+              <p>
+                Nailscar Ministry is a faith-based suicide prevention,
+                awareness, survivor support, and crisis-direction ministry. We
+                are not a licensed mental health or medical service, but we aim
+                to help people find the right next step and the right resources.
+              </p>
+            </div>
+
+            <div class="lang-ja content-flow">
+              <span class="lang-tag">日本語</span>
+              <h2>ひとりではありません。</h2>
+              <p>
+                Nailscar Ministry
+                は、信仰に基づく自殺予防・啓発・サバイバー支援・危機時の案内を行うミニストリーです。
+                私たちは医療機関や心理臨床の専門機関ではありませんが、苦しみの中にいる人が適切な次の一歩と必要な支援先につながるように願っています。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="card content-flow center">
+            <h2>What do you need right now?</h2>
+            <p class="max-text" style="margin-left: auto; margin-right: auto">
+              Start with the page that best fits your situation. You do not have
+              to carry this alone.
             </p>
 
-            <h3 class="jp-heading">小さな一歩も大切です。</h3>
-            <p class="jp-text">
-              助けを求めることは簡単ではありません。このサイトが、支援やつながり、
-              希望へ向かうための落ち着いた最初の一歩になればと願っています。
-            </p>
+            <div class="hero-actions" style="justify-content: center">
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+              <a href="resources.html" class="btn btn-secondary"
+                >View Resources</a
+              >
+              <a href="contact.html" class="btn btn-secondary">Contact</a>
+            </div>
           </div>
         </div>
       </section>
@@ -151,10 +300,18 @@
 
     <footer class="site-footer">
       <div class="container footer-inner">
-        <p>© 2026 Nailscar Outreach</p>
-        <p class="footer-note">
-          Bilingual outreach in Japan / 日本での日英バイリンガル支援
-        </p>
+        <p>You are not alone.</p>
+
+        <div class="footer-links">
+          <a href="get-help-now.html">Get Help Now</a>
+          <a href="worried-about-someone.html">Help Someone</a>
+          <a href="survivors.html">Survivors</a>
+          <a href="resources.html">Resources</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <p class="small">© 2026 Nailscar Ministry</p>
       </div>
     </footer>
 
