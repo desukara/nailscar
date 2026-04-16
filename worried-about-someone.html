@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>Help Someone - Nailscar Ministry</title>
     <meta
       name="description"
       content="Guidance for helping someone who may be struggling with suicidal thoughts. What to say, what to do, and where to get help."
     />
+    <link rel="alternate" hreflang="ja" href="worried-about-someone-ja.html" />
     <link rel="stylesheet" href="styles.css" />
   </head>
 
@@ -16,18 +18,41 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="worried-about-someone.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a
+              href="worried-about-someone-ja.html"
+              data-lang="ja"
+              class="lang-link"
+              >日本語</a
+            >
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="get-help-now.html">Get Help</a>
           <a href="worried-about-someone.html" class="active">Help Someone</a>
@@ -40,18 +65,51 @@
     </header>
 
     <main>
-      <section class="page-header">
-        <div class="container">
-          <h1>Worried About Someone?</h1>
-          <p>
-            If you are concerned that someone may be struggling or thinking
-            about suicide, your concern matters. You do not have to handle this
-            perfectly — but you should not ignore it.
-          </p>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Help Someone</span>
+            <h1>Worried About Someone?</h1>
+            <p>
+              If you are concerned that someone may be struggling or thinking
+              about suicide, your concern matters. You do not have to handle
+              this perfectly — but you should not ignore it.
+            </p>
+
+            <div class="hero-actions">
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+              <a href="resources.html" class="btn btn-secondary"
+                >View Resources</a
+              >
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                If someone may be at risk, taking action matters. You do not
+                need perfect words. You do need to take the situation seriously.
+              </p>
+            </div>
+          </div>
+
+          <aside class="hero-panel content-flow">
+            <h2>What this page covers</h2>
+            <p class="muted">
+              Guidance for what to do right now, what to avoid, and how to help
+              someone connect to real support.
+            </p>
+
+            <ul class="clean-list">
+              <li><strong>What you can do right now</strong></li>
+              <li><strong>What to avoid</strong></li>
+              <li><strong>Your limits</strong></li>
+              <li><strong>Emergency steps</strong></li>
+            </ul>
+          </aside>
         </div>
       </section>
 
-      <!-- EMERGENCY -->
       <section class="section section-tight">
         <div class="container">
           <div class="warning-box content-flow">
@@ -73,10 +131,15 @@
         </div>
       </section>
 
-      <!-- WHAT TO DO -->
       <section class="section">
         <div class="container">
-          <h2 class="section-title">What you can do right now</h2>
+          <div class="center max-text">
+            <h2 class="section-title">What you can do right now</h2>
+            <p class="section-subtitle">
+              You do not need to handle this perfectly. But doing something is
+              better than doing nothing.
+            </p>
+          </div>
 
           <div class="grid-2 spacer-lg">
             <article class="card content-flow">
@@ -135,10 +198,15 @@
         </div>
       </section>
 
-      <!-- WHAT NOT TO DO -->
       <section class="section">
         <div class="container">
-          <h2 class="section-title">What to avoid</h2>
+          <div class="center max-text">
+            <h2 class="section-title">What to avoid</h2>
+            <p class="section-subtitle">
+              Some responses can unintentionally make a struggling person feel
+              more alone.
+            </p>
+          </div>
 
           <div class="grid-3 spacer-lg">
             <article class="card">
@@ -165,7 +233,6 @@
         </div>
       </section>
 
-      <!-- YOUR LIMITS -->
       <section class="section">
         <div class="container">
           <div class="card content-flow">
@@ -186,7 +253,6 @@
         </div>
       </section>
 
-      <!-- MINISTRY ROLE -->
       <section class="section">
         <div class="container">
           <div class="card content-flow">
@@ -207,12 +273,11 @@
         </div>
       </section>
 
-      <!-- FINAL CTA -->
       <section class="section">
         <div class="container">
           <div class="card content-flow center">
             <h2>You are not alone in this either.</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               If you are worried about someone, take it seriously and take
               action. You do not need to do this perfectly — just do not do
               nothing.
@@ -243,6 +308,26 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="worried-about-someone.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a
+            href="worried-about-someone-ja.html"
+            data-lang="ja"
+            class="lang-link"
+            >日本語</a
+          >
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
