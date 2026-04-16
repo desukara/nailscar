@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>Survivors - Nailscar Ministry</title>
     <meta
       name="description"
       content="Support for suicide loss survivors, grief, trauma, and those living with the aftermath of suicide."
     />
+    <link rel="alternate" hreflang="ja" href="survivors-ja.html" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -15,18 +17,38 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="survivors.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a href="survivors-ja.html" data-lang="ja" class="lang-link"
+              >日本語</a
+            >
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
           <a href="get-help-now.html">Get Help</a>
           <a href="worried-about-someone.html">Help Someone</a>
@@ -39,13 +61,48 @@
     </header>
 
     <main>
-      <section class="page-header">
-        <div class="container">
-          <h1>For Survivors</h1>
-          <p>
-            If you are living with the aftermath of suicide loss, trauma, or the
-            devastation left behind, this page is for you.
-          </p>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">For Survivors</span>
+            <h1>You do not have to carry this alone.</h1>
+            <p>
+              If you are living with the aftermath of suicide loss, trauma, or
+              the devastation left behind, this page is for you.
+            </p>
+
+            <div class="hero-actions">
+              <a href="resources.html" class="btn btn-secondary"
+                >View Resources</a
+              >
+              <a href="get-help-now.html" class="btn btn-danger"
+                >Get Help Now</a
+              >
+            </div>
+
+            <div class="spacer-lg content-flow">
+              <p>
+                Your pain is real. You do not have to pretend you are okay. You
+                do not have to rush your healing. And you do not have to carry
+                this by yourself.
+              </p>
+            </div>
+          </div>
+
+          <aside class="hero-panel content-flow">
+            <h2>What this page covers</h2>
+            <p class="muted">
+              This page speaks to grief, trauma, guilt, support needs, and the
+              next steps many survivors face.
+            </p>
+
+            <ul class="clean-list">
+              <li><strong>What survivors often feel</strong></li>
+              <li><strong>What survivors often need</strong></li>
+              <li><strong>If you are struggling today</strong></li>
+              <li><strong>A word about guilt</strong></li>
+            </ul>
+          </aside>
         </div>
       </section>
 
@@ -277,7 +334,7 @@
         <div class="container">
           <div class="card content-flow center">
             <h2>You do not have to carry this alone.</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               If you are grieving, overwhelmed, or trying to survive the
               aftermath, take the next step that helps you stay connected and
               supported.
@@ -308,6 +365,23 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="survivors.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a href="survivors-ja.html" data-lang="ja" class="lang-link"
+            >日本語</a
+          >
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
