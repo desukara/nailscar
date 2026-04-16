@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffaf7" />
     <title>Home - Nailscar Ministry</title>
     <meta
       name="description"
       content="Nailscar Ministry is a faith-based suicide prevention, awareness, survivor support, and crisis-direction website helping people find the right resources in Japan."
     />
+    <link rel="alternate" hreflang="ja" href="index-ja.html" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -15,18 +17,36 @@
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
 
-        <button
-          class="menu-toggle"
-          id="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          type="button"
-        >
-          ☰
-        </button>
+        <div class="header-controls">
+          <a href="get-help-now.html" class="btn btn-danger header-cta"
+            >Get Help</a
+          >
 
-        <nav class="site-nav" id="site-nav">
+          <div class="language-toggle" aria-label="Language selector">
+            <a
+              href="index.html"
+              data-lang="en"
+              class="lang-link"
+              aria-current="true"
+              >EN</a
+            >
+            <span class="lang-separator">|</span>
+            <a href="index-ja.html" data-lang="ja" class="lang-link">日本語</a>
+          </div>
+
+          <button
+            class="menu-toggle"
+            id="menu-toggle"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="site-nav"
+            type="button"
+          >
+            ☰
+          </button>
+        </div>
+
+        <nav class="site-nav" id="site-nav" aria-label="Main navigation">
           <a href="index.html" class="active">Home</a>
           <a href="get-help-now.html">Get Help</a>
           <a href="worried-about-someone.html">Help Someone</a>
@@ -279,7 +299,7 @@
         <div class="container">
           <div class="card content-flow center">
             <h2>What do you need right now?</h2>
-            <p class="max-text" style="margin-left: auto; margin-right: auto">
+            <p class="max-text center">
               Start with the page that best fits your situation. You do not have
               to carry this alone.
             </p>
@@ -309,6 +329,21 @@
           <a href="resources.html">Resources</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact</a>
+        </div>
+
+        <div
+          class="language-toggle footer-language-toggle"
+          aria-label="Language selector"
+        >
+          <a
+            href="index.html"
+            data-lang="en"
+            class="lang-link"
+            aria-current="true"
+            >EN</a
+          >
+          <span class="lang-separator">|</span>
+          <a href="index-ja.html" data-lang="ja" class="lang-link">日本語</a>
         </div>
 
         <p class="small">© 2026 Nailscar Ministry</p>
