@@ -43,8 +43,6 @@
   --container: 1160px;
   --transition-fast: 0.18s ease;
   --transition: 0.25s ease;
-
-  --banner-offset: 0px;
 }
 
 /* =========================
@@ -71,15 +69,10 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
-  padding-top: var(--banner-offset);
 }
 
 body.menu-open {
   overflow: hidden;
-}
-
-body.has-install-banner {
-  --banner-offset: 64px;
 }
 
 img {
@@ -192,9 +185,7 @@ h3 {
 ========================= */
 
 .install-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
   z-index: 1200;
   background: rgba(255, 250, 247, 0.98);
@@ -265,8 +256,7 @@ h3 {
 ========================= */
 
 .site-header {
-  position: sticky;
-  top: var(--banner-offset, 0px);
+  position: relative;
   z-index: 1000;
   background: rgba(255, 250, 247, 0.96);
   backdrop-filter: blur(12px);
@@ -305,13 +295,8 @@ h3 {
   min-width: 0;
 }
 
-/* hide accidental duplicate header CTA */
-.site-header .header-cta,
-.site-header .get-help-btn,
-.site-header .get-help-button,
-.site-header .header-get-help,
-.site-header a[href*="get-help"] {
-  display: none !important;
+.site-header .header-cta {
+  display: none;
 }
 
 /* =========================
@@ -688,10 +673,6 @@ h3 {
 ========================= */
 
 @media (max-width: 760px) {
-  body.has-install-banner {
-    --banner-offset: 108px;
-  }
-
   .install-banner-inner {
     grid-template-columns: 1fr auto;
     grid-template-areas:
@@ -834,10 +815,6 @@ h3 {
 @media (max-width: 480px) {
   body {
     font-size: 0.98rem;
-  }
-
-  body.has-install-banner {
-    --banner-offset: 116px;
   }
 
   .container {
