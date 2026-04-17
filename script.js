@@ -100,19 +100,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const installBanner = document.getElementById("installBanner");
   const installBtn = document.getElementById("installBtn");
-  const closeBanner = document.getElementById("closeBanner");
+  const closeBanner = document.getElementById("closeInstallBanner");
 
   let deferredPrompt = null;
 
-  // 🔥 ALWAYS SHOW BANNER
-  if (installBanner) {
+  function showInstallBanner() {
+    if (!installBanner) return;
     installBanner.style.display = "block";
+    document.body.classList.add("has-install-banner");
   }
+
+  function hideInstallBanner() {
+    if (!installBanner) return;
+    installBanner.style.display = "none";
+    document.body.classList.remove("has-install-banner");
+  }
+
+  // Keep the banner visible by default
+  showInstallBanner();
 
   // Capture install prompt if available
   window.addEventListener("beforeinstallprompt", (event) => {
     event.preventDefault();
     deferredPrompt = event;
+    showInstallBanner();
   });
 
   // Install button
@@ -120,26 +131,34 @@ document.addEventListener("DOMContentLoaded", () => {
     installBtn.addEventListener("click", async () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
+
+        try {
+          await deferredPrompt.userChoice;
+        } catch (error) {
+          // ignore
+        }
+
         deferredPrompt = null;
+        return;
       }
+
+      alert(
+        "App install is not available automatically on this device/browser. Please use your browser menu and choose Add to Home Screen if available."
+      );
     });
   }
 
   // Close button
   if (closeBanner) {
     closeBanner.addEventListener("click", () => {
-      if (installBanner) {
-        installBanner.style.display = "none";
-      }
+      hideInstallBanner();
     });
   }
 
   // After install
   window.addEventListener("appinstalled", () => {
     deferredPrompt = null;
-    if (installBanner) {
-      installBanner.style.display = "none";
-    }
+    hideInstallBanner();
   });
 
   // =========================
