@@ -21,9 +21,7 @@
     <div id="installBanner" class="install-banner">
       <div class="install-banner-inner">
         <span class="install-text">Get the Nailscar app for quick access.</span>
-        <button id="installBtn" class="install-btn" type="button">
-          ⬇ Install App
-        </button>
+        <button id="installBtn" class="install-btn">⬇ Install App</button>
         <button
           id="closeInstallBanner"
           class="close-install-banner"
@@ -371,41 +369,6 @@
         <p class="small">© 2026 Nailscar Ministry</p>
       </div>
     </footer>
-
     <script src="script.js"></script>
-    <script>
-      let deferredPrompt;
-      const banner = document.getElementById("installBanner");
-      const btn = document.getElementById("installBtn");
-      const closeBtn = document.getElementById("closeInstallBanner");
-
-      if (banner && btn && closeBtn) {
-        btn.addEventListener("click", async () => {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt = null;
-          }
-        });
-
-        closeBtn.addEventListener("click", () => {
-          banner.style.display = "none";
-          document.body.classList.remove("has-install-banner");
-        });
-
-        window.addEventListener("beforeinstallprompt", (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          document.body.classList.add("has-install-banner");
-          banner.style.display = "block";
-        });
-
-        window.addEventListener("appinstalled", () => {
-          banner.style.display = "none";
-          document.body.classList.remove("has-install-banner");
-        });
-
-        document.body.classList.add("has-install-banner");
-      }
-    </script>
   </body>
 </html>
