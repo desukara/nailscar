@@ -72,10 +72,24 @@
             </p>
 
             <div class="hero-actions">
-              <a href="mailto:Jesuslebenjp@gmail.com" class="btn btn-primary">
-  Email James
-</a>
-              
+              <a
+                href="mailto:Jesuslebenjp@gmail.com"
+                class="btn btn-primary email-contact-link"
+                data-email="Jesuslebenjp@gmail.com"
+                data-mailto="mailto:Jesuslebenjp@gmail.com"
+                data-gmail="https://mail.google.com/mail/?view=cm&fs=1&to=Jesuslebenjp@gmail.com"
+              >
+                Email James
+              </a>
+
+              <button
+                type="button"
+                class="btn btn-secondary copy-email-btn"
+                data-email="Jesuslebenjp@gmail.com"
+              >
+                Copy Email
+              </button>
+
               <a href="get-help-now.html" class="btn btn-danger"
                 >Get Help Now</a
               >
@@ -86,6 +100,11 @@
                 If you need support direction, would like to ask a question,
                 want to connect with Nailscar Ministry, or would like prayer,
                 you are welcome to email directly.
+              </p>
+              <p class="muted">
+                On mobile, the email button opens your email app. On desktop, it
+                opens Gmail compose and also gives you a copy option if that is
+                easier.
               </p>
             </div>
           </div>
@@ -146,21 +165,45 @@
               welcome to email directly.
             </p>
 
-            <div class="callout">
-              <strong>Email address:</strong>
-              <a href="mailto:Jesuslebenjp@gmail.com">Jesuslebenjp@gmail.com</a>
-            </div>
+            <div class="callout content-flow">
+              <p>
+                <strong>Email address:</strong>
+                <a
+                  href="mailto:Jesuslebenjp@gmail.com"
+                  class="email-contact-link"
+                  data-email="Jesuslebenjp@gmail.com"
+                  data-mailto="mailto:Jesuslebenjp@gmail.com"
+                  data-gmail="https://mail.google.com/mail/?view=cm&fs=1&to=Jesuslebenjp@gmail.com"
+                >
+                  Jesuslebenjp@gmail.com
+                </a>
+              </p>
 
-            <div class="hero-actions">
-              <a href="mailto:Jesuslebenjp@gmail.com" class="btn btn-primary"
-                >Email James</a
-              >
+              <div class="hero-actions">
+                <a
+                  href="mailto:Jesuslebenjp@gmail.com"
+                  class="btn btn-primary email-contact-link"
+                  data-email="Jesuslebenjp@gmail.com"
+                  data-mailto="mailto:Jesuslebenjp@gmail.com"
+                  data-gmail="https://mail.google.com/mail/?view=cm&fs=1&to=Jesuslebenjp@gmail.com"
+                >
+                  Email James
+                </a>
+
+                <button
+                  type="button"
+                  class="btn btn-secondary copy-email-btn"
+                  data-email="Jesuslebenjp@gmail.com"
+                >
+                  Copy Email
+                </button>
+              </div>
             </div>
 
             <p class="muted">
               On mobile, tapping the button or email address should open your
-              email app directly. On desktop, you can also copy the address if
-              that is easier.
+              email app directly. On desktop, the button opens Gmail compose,
+              and you can also copy the address if that is easier.
             </p>
           </div>
         </div>
@@ -230,9 +273,24 @@
             </p>
 
             <div class="hero-actions" style="justify-content: center">
-              <a href="mailto:Jesuslebenjp@gmail.com" class="btn btn-primary"
-                >Email James</a
+              <a
+                href="mailto:Jesuslebenjp@gmail.com"
+                class="btn btn-primary email-contact-link"
+                data-email="Jesuslebenjp@gmail.com"
+                data-mailto="mailto:Jesuslebenjp@gmail.com"
+                data-gmail="https://mail.google.com/mail/?view=cm&fs=1&to=Jesuslebenjp@gmail.com"
               >
+                Email James
+              </a>
+
+              <button
+                type="button"
+                class="btn btn-secondary copy-email-btn"
+                data-email="Jesuslebenjp@gmail.com"
+              >
+                Copy Email
+              </button>
+
               <a href="get-help-now.html" class="btn btn-danger"
                 >Get Help Now</a
               >
@@ -275,5 +333,56 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const email = "Jesuslebenjp@gmail.com";
+        const mailtoLink = `mailto:${email}`;
+        const gmailComposeLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+          email
+        )}`;
+
+        const isTouchDevice =
+          "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+        const isMobileWidth = window.innerWidth <= 768;
+
+        const useMobileEmailBehavior = isTouchDevice || isMobileWidth;
+
+        document.querySelectorAll(".email-contact-link").forEach((link) => {
+          if (useMobileEmailBehavior) {
+            link.setAttribute("href", mailtoLink);
+            link.removeAttribute("target");
+            link.removeAttribute("rel");
+          } else {
+            link.setAttribute("href", gmailComposeLink);
+            link.setAttribute("target", "_blank");
+            link.setAttribute("rel", "noopener noreferrer");
+          }
+        });
+
+        document.querySelectorAll(".copy-email-btn").forEach((button) => {
+          button.addEventListener("click", async () => {
+            const originalText = button.textContent;
+
+            try {
+              await navigator.clipboard.writeText(email);
+              button.textContent = "Copied!";
+            } catch (error) {
+              const tempInput = document.createElement("input");
+              tempInput.value = email;
+              document.body.appendChild(tempInput);
+              tempInput.select();
+              document.execCommand("copy");
+              document.body.removeChild(tempInput);
+              button.textContent = "Copied!";
+            }
+
+            setTimeout(() => {
+              button.textContent = originalText;
+            }, 1800);
+          });
+        });
+      });
+    </script>
   </body>
 </html>
