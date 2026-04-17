@@ -595,6 +595,32 @@ h3 {
   box-shadow: 0 10px 22px rgba(143, 28, 19, 0.2);
 }
 
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 18px rgba(37, 211, 102, 0.25);
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(30, 190, 93, 0.3);
+}
+
+.btn-line {
+  background: #06C755;
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 18px rgba(6, 199, 85, 0.25);
+}
+
+.btn-line:hover {
+  background: #05b34f;
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(5, 179, 79, 0.3);
+}
+
 /* =========================
    FOOTER
 ========================= */
