@@ -4,12 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fffaf7" />
-  <link rel="icon" href="favicon.ico">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#ffffff">
+    <link rel="icon" href="favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <title>Home - Nailscar Ministry</title>
     <meta
       name="description"
@@ -19,6 +18,23 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div id="installBanner" class="install-banner">
+      <div class="install-banner-inner">
+        <span class="install-text">Get the Nailscar app for quick access.</span>
+        <button id="installBtn" class="install-btn" type="button">
+          ⬇ Install App
+        </button>
+        <button
+          id="closeInstallBanner"
+          class="close-install-banner"
+          aria-label="Close install banner"
+          type="button"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+
     <header class="site-header">
       <div class="container nav-wrap">
         <a href="index.html" class="logo">Nailscar Ministry</a>
@@ -357,5 +373,39 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+      let deferredPrompt;
+      const banner = document.getElementById("installBanner");
+      const btn = document.getElementById("installBtn");
+      const closeBtn = document.getElementById("closeInstallBanner");
+
+      if (banner && btn && closeBtn) {
+        btn.addEventListener("click", async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt = null;
+          }
+        });
+
+        closeBtn.addEventListener("click", () => {
+          banner.style.display = "none";
+          document.body.classList.remove("has-install-banner");
+        });
+
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          document.body.classList.add("has-install-banner");
+          banner.style.display = "block";
+        });
+
+        window.addEventListener("appinstalled", () => {
+          banner.style.display = "none";
+          document.body.classList.remove("has-install-banner");
+        });
+
+        document.body.classList.add("has-install-banner");
+      }
+    </script>
   </body>
 </html>
